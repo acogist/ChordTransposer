@@ -501,13 +501,13 @@
       }
       #previewBtn, #saveBtn {
         grid-row: 4;
-        margin-block: 8px calc(8px + var(--pb));
+        margin-block: 8px calc(10px + max(var(--pb), 12px));   /* 角丸・ホームバーに掛からないよう最低限の余白を確保 */
         padding: 0 4px;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      #previewBtn { grid-column: 1; margin-left: var(--pl); }
-      #saveBtn { grid-column: 2; margin-right: var(--pr); }
+      #previewBtn { grid-column: 1; margin-left: max(var(--pl), 20px); }
+      #saveBtn { grid-column: 2; margin-right: max(var(--pr), 20px); }
     }
 
     @media (prefers-reduced-motion: reduce) {

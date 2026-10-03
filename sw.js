@@ -1,34 +1,49 @@
-// アプリ更新時は VERSION を変更すると、古いキャッシュが破棄されます
-const VERSION = "v5";
-const CACHE = "chord-transposer-" + VERSION;
-const ASSETS = [
-  "./", "./index.html", "./manifest.json",
-  "./icons/icon-192.png", "./icons/icon-512.png",
-  "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png"
-];
+// Build number is stamped by GitHub Actions (__BUILD__ -> workflow run number).
+const VERSION = "__BUILD__";
+const PREFIX = "chord-transposer-";
+const CACHE = PREFIX + VERSION;
+const CORE = ["./", "index.html", "manifest.json"];
 
-self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+self.addEventListener("install", (event) => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE).then((cache) =>
+      Promise.all(
+        CORE.map((url) =>
+          fetch(new Request(url, { cache: "reload" }))
+            .then((res) => res.ok && cache.put(url, res))
+            .catch(() => {})
+        )
+      )
+    )
+  );
 });
 
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches
+      .keys()
+      // Only touch this app's caches (other apps on the same origin share Cache Storage)
+      .then((keys) => Promise.all(keys.filter((k) => k.startsWith(PREFIX) && k !== CACHE).map((k) => caches.delete(k))))
       .then(() => self.clients.claim())
   );
 });
 
-// キャッシュ優先、なければネットワーク
-self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
-  e.respondWith(
-    caches.match(e.request).then((hit) => hit || fetch(e.request).then((res) => {
-      if (res.ok && new URL(e.request.url).origin === location.origin) {
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(e.request, copy));
-      }
-      return res;
-    }).catch(() => caches.match("./index.html")))
+// Network first (always the latest when online), cache as offline fallback.
+self.addEventListener("fetch", (event) => {
+  const req = event.request;
+  if (req.method !== "GET" || new URL(req.url).origin !== self.location.origin) return;
+  event.respondWith(
+    fetch(new Request(req.url, { cache: "no-cache" }))
+      .then((res) => {
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+        }
+        return res;
+      })
+      .catch(() =>
+        caches.match(req, { ignoreSearch: true }).then((r) => r || (req.mode === "navigate" ? caches.match("index.html") : undefined))
+      )
   );
 });

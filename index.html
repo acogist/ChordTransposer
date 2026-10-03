@@ -290,6 +290,7 @@
     .help-list li { margin-bottom: 10px; }
     .help-list li:last-child { margin-bottom: 0; }
     .help-list b { color: var(--ink); }
+    dialog.msg p.help-version { margin: 0 0 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--subtle); font-size: 12px; font-variant-numeric: tabular-nums; }
 
     dialog.loading {
       width: min(360px, calc(100vw - 32px));
@@ -609,6 +610,7 @@
         <li><b>Save</b> – Save the result.</li>
       </ol>
     </div>
+    <p class="help-version" id="swVersion">Version: …</p>
     <div class="dlg-actions">
       <button class="primary" id="helpClose" type="button">Close</button>
     </div>
@@ -629,6 +631,8 @@
 
   <script>
     (function () {
+      // デプロイ時に GitHub Actions が __BUILD__ を実行番号へ置き換える（未置換なら dev 表示）
+      const APP_VERSION = "__BUILD__";
       const SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
       const FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
       const NOTE_INDEX = {
@@ -1513,7 +1517,25 @@
 
       // 使い方ダイアログ
       const helpDlg = document.getElementById("helpDlg");
+      // バージョン表示: デプロイ番号 + 有効な Service Worker のキャッシュ番号（食い違うときだけ併記）
+      async function showSwVersion() {
+        const el = document.getElementById("swVersion");
+        const PREFIX = "chord-transposer-";
+        const page = /^\d+$/.test(APP_VERSION) ? APP_VERSION : "dev";
+        let cache = "";
+        try {
+          if (window.caches) {
+            cache = (await caches.keys())
+              .filter(function (k) { return k.indexOf(PREFIX) === 0; })
+              .map(function (k) { return k.slice(PREFIX.length); })
+              .join(", ");
+          }
+        } catch (e) {}
+        el.textContent = "Version: " + page + (cache && cache !== page ? " (cache: " + cache + ")" : "");
+      }
+
       document.getElementById("helpBtn").addEventListener("click", function () {
+        showSwVersion();
         if (typeof helpDlg.showModal === "function") helpDlg.showModal();
       });
       document.getElementById("helpClose").addEventListener("click", function () { helpDlg.close(); });

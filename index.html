@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Chords" />
+  <link rel="apple-touch-icon" href="data:image/png;base64,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" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 28'%3E%3Crect width='28' height='28' rx='7'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M11 7v14M17 7v14M8 12.5l12-2.5M8 18.5l12-2.5'/%3E%3C/g%3E%3C/svg%3E" />
+  <title>Chord Transposer</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #000;
+      --paper: #fff;
+      --muted: #525252;
+      --subtle: #737373;
+      --line: #e5e5e5;
+      --line-strong: #d4d4d4;
+      --hover-fill: #f5f5f5;
+      --out-bg: #fff;
+      --out-ink: #000;
+      --out-muted: #525252;
+      --out-line: #e5e5e5;
+      --radius: 8px;
+      --shadow: 0 24px 64px rgba(0, 0, 0, 0.28);
+      --mono: "Cascadia Mono", "Consolas", "MS Gothic", monospace;
+      --sans: "Segoe UI Variable Text", "Segoe UI", "Yu Gothic UI", "Meiryo UI", "Meiryo", system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", sans-serif;
+      --editor-size: 14px;
+      --pad-x: 20px;
+      --ctl-h: 34px;
+      /* 横向き時のノッチ / ホームバー回避（非対応環境では 0） */
+      --pl: calc(var(--pad-x) + env(safe-area-inset-left, 0px));
+      --pr: calc(var(--pad-x) + env(safe-area-inset-right, 0px));
+      --pb: env(safe-area-inset-bottom, 0px);
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 13px;
+      background: var(--paper);
+      -webkit-font-smoothing: antialiased;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior: none;
+    }
+
+    .app {
+      height: 100vh;
+      height: 100dvh;
+      min-height: 280px;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    /* ---------- Toolbar ---------- */
+    header {
+      padding: 12px var(--pr) 12px var(--pl);
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .mark { width: 28px; height: 28px; flex: none; }
+
+    .group {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+    }
+    .group + .group {
+      padding-left: 20px;
+      border-left: 1px solid var(--line);
+    }
+    .group.end {
+      margin-left: auto;
+      padding-left: 0;
+      border-left: 0;
+      gap: 8px;
+    }
+
+    label.ctl {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    select, button {
+      font-family: inherit;
+      font-size: 13px;
+      height: var(--ctl-h);
+      touch-action: manipulation;
+      transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+    }
+
+    select {
+      -webkit-appearance: none;
+      appearance: none;
+      padding: 0 32px 0 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    #semitones {
+      min-width: 108px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    button {
+      -webkit-appearance: none;
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 0 16px;
+      cursor: pointer;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .primary { color: var(--paper); background: var(--ink); }
+    .primary:active { background: #404040; }
+    .ghost {
+      color: var(--ink);
+      background: var(--paper);
+      border-color: var(--line-strong);
+    }
+    .ghost:active { background: var(--line); }
+
+    /* ホバーがある環境だけ（タッチ端末でホバー状態が残らないように） */
+    @media (hover: hover) {
+      select:hover { border-color: var(--ink); }
+      .primary:hover { background: #262626; }
+      .ghost:hover { border-color: var(--ink); background: var(--hover-fill); }
+    }
+
+    select:focus-visible, button:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 2px;
+    }
+
+    #fileInput { display: none; }
+
+    /* ---------- Editor panes ---------- */
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 0;
+    }
+
+    .panel {
+      --focus: var(--ink);
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--paper);
+      color: var(--ink);
+      overflow: hidden;
+    }
+
+    .panel.out {
+      --focus: var(--out-ink);
+      background: var(--out-bg);
+      color: var(--out-ink);
+      border-left: 1px solid var(--line);
+    }
+
+    .panel-head {
+      flex: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      height: 40px;
+      padding: 0 var(--pr) 0 var(--pl);
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      transition: box-shadow 0.15s;
+    }
+    .panel.out .panel-head { border-bottom-color: var(--out-line); }
+    .panel:focus-within .panel-head { box-shadow: inset 0 -2px 0 var(--focus); }
+
+    .hint {
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+    }
+    .panel.out .hint { color: var(--out-muted); }
+
+    textarea {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+      resize: none;
+      padding: 16px var(--pr) 16px var(--pl);
+      font-family: var(--mono);
+      font-size: var(--editor-size);
+      line-height: 1.55;
+      background: transparent;
+      color: inherit;
+      outline: none;
+      tab-size: 4;
+      white-space: pre;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #c4c4c4 transparent;
+    }
+    textarea::placeholder { color: var(--subtle); opacity: 1; }
+    textarea::selection { background: var(--ink); color: var(--paper); }
+
+    .panel.out textarea::selection { background: var(--out-ink); color: var(--out-bg); }
+
+    /* ---------- Dialogs ---------- */
+    dialog.msg {
+      width: min(420px, calc(100vw - 32px));
+      border: 1px solid var(--ink);
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      box-shadow: var(--shadow);
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+    dialog.msg::backdrop { background: rgba(0, 0, 0, 0.55); }
+    dialog.msg h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    dialog.msg p {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    dialog.msg .dlg-actions { display: flex; justify-content: flex-end; }
+
+    dialog.loading {
+      width: min(360px, calc(100vw - 32px));
+      border: 1px solid var(--ink);
+      border-radius: 12px;
+      padding: 24px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    dialog.loading::backdrop { background: rgba(0, 0, 0, 0.55); }
+    .progress {
+      margin-top: 14px;
+      height: 4px;
+      border-radius: 99px;
+      background: var(--line);
+      overflow: hidden;
+    }
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--ink);
+      transition: width 0.2s;
+    }
+
+    /* タッチ端末向けのプレビュー（画面全体に重ねて表示） */
+    dialog.preview {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: var(--out-bg);
+      color: var(--out-ink);
+      font-family: var(--sans);
+    }
+    dialog.preview[open] { display: flex; flex-direction: column; }
+    dialog.preview::backdrop { background: #000; }
+    .pv-bar {
+      flex: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 52px;
+      padding: env(safe-area-inset-top, 0px) var(--pr) 0 var(--pl);
+      border-bottom: 1px solid var(--out-line);
+      font-size: 13px;
+      font-weight: 700;
+      box-sizing: content-box;
+    }
+    .pv-bar button {
+      color: var(--out-ink);
+      background: transparent;
+      border-color: #525252;
+    }
+    .pv-bar button:active { background: var(--line); }
+    .pv-bar button:focus-visible { outline-color: var(--out-ink); }
+    #previewFrame {
+      flex: 1;
+      min-height: 0;
+      width: 100%;
+      border: 0;
+      background: var(--out-bg);
+      padding-bottom: var(--pb);
+    }
+
+    /* ---------- Touch devices ---------- */
+    @media (pointer: coarse) {
+      :root { --ctl-h: 44px; }
+      select { font-size: 16px; }   /* iOS Safari のフォーカス時ズーム防止 */
+      button { font-size: 14px; }
+    }
+
+    /* ---------- Tablet portrait / narrow window: stack the panes ---------- */
+    @media (max-width: 900px) {
+      :root { --pad-x: 14px; }
+    }
+    @media (max-width: 900px) and (min-height: 521px) {
+      .group + .group { padding-left: 0; border-left: 0; }
+      /* 1段目: タイトル と 右端に「プレビュー / 保存」、2段目: 「ファイルを開く」と設定 */
+      .toolbar { display: grid; grid-template-columns: auto minmax(0, 1fr); }
+      .brand { grid-area: 1 / 1; }
+      .group.end { grid-area: 1 / 2; justify-self: end; margin-left: 0; }
+      .group.open { grid-area: 2 / 1; }
+      .group.settings { grid-area: 2 / 2; }
+      main {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+      }
+      .panel.out { border-left: 0; border-top: 1px solid var(--line); }
+    }
+
+    /* ---------- Phone landscape: keep panes side by side, compact chrome ---------- */
+    @media (max-height: 500px) and (orientation: landscape) {
+      :root { --pad-x: 12px; --ctl-h: 34px; }
+      header { padding-top: 6px; padding-bottom: 6px; }
+      .toolbar { gap: 6px 12px; }
+      .brand span { display: none; }
+      .group + .group { padding-left: 12px; }
+      .group { gap: 6px 12px; }
+      .panel-head { height: 32px; }
+      textarea { padding-top: 10px; padding-bottom: 10px; }
+    }
+
+    /* ---------- Phone portrait ----------
+       上: タイトルと設定 / 中: 入力・変換後（見出しをタップして切り替え） /
+       下: 操作ボタン（親指が届く位置） */
+    @media (max-width: 600px) {
+      :root { --pad-x: 14px; }
+
+      .app {
+        min-height: 0;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: auto auto minmax(0, 1fr) auto;
+        column-gap: 8px;
+      }
+
+      /* ヘッダー内の要素を .app のグリッドに直接配置する */
+      header, .toolbar, .group.open, .group.end { display: contents; }
+
+      .brand {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        padding: 10px var(--pr) 0 var(--pl);
+      }
+
+      .group.settings {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px var(--pr) 10px var(--pl);
+        border-left: 0;
+      }
+      label.ctl {
+        height: 40px;
+        gap: 4px;
+        padding-left: 12px;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+      }
+      label.ctl select {
+        height: 38px;
+        min-width: 0;
+        padding: 0 28px 0 4px;
+        border: 0;
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background-color: transparent;
+      }
+      label.ctl #semitones { min-width: 0; }
+      label.ctl:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+      label.ctl select:focus-visible { outline: 0; }
+
+      main {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        display: flex;
+        flex-direction: column;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+      .panel.out { border-left: 0; border-top: 1px solid var(--line); }
+      .panel { flex: 0 0 auto; }
+      .app[data-view="in"] .panel:not(.out),
+      .app[data-view="out"] .panel.out { flex: 1 1 0; }
+      .app[data-view="in"] .panel.out textarea,
+      .app[data-view="out"] .panel:not(.out) textarea { display: none; }
+
+      .panel-head { height: 44px; cursor: pointer; }
+      .panel-head > span:first-child::after {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        margin: 0 0 3px 10px;
+        border-right: 2px solid currentColor;
+        border-bottom: 2px solid currentColor;
+        transform: rotate(45deg);
+      }
+      .app[data-view="in"] .panel:not(.out) .panel-head > span:first-child::after,
+      .app[data-view="out"] .panel.out .panel-head > span:first-child::after {
+        margin: 3px 0 0 10px;
+        transform: rotate(-135deg);
+      }
+
+      #openBtn, #previewBtn, #saveBtn {
+        grid-row: 4;
+        margin-block: 8px;
+        padding: 0 4px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      #openBtn { grid-column: 1; margin-left: var(--pl); }
+      #previewBtn { grid-column: 2; }
+      #saveBtn { grid-column: 3; margin-right: var(--pr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app" data-view="in">
+    <header>
+      <div class="toolbar">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 28 28" aria-hidden="true">
+            <rect width="28" height="28" rx="7" fill="#000" />
+            <g fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round">
+              <path d="M11 7v14M17 7v14" />
+              <path d="M8 12.5l12-2.5M8 18.5l12-2.5" />
+            </g>
+          </svg>
+          <span>Chord Transposer</span>
+        </div>
+
+        <div class="group open">
+          <button class="ghost" id="openBtn" type="button">Open</button>
+          <input id="fileInput" type="file" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
+        </div>
+
+        <div class="group settings">
+          <label class="ctl">Transpose
+            <select id="semitones" aria-label="Semitones to transpose"></select>
+          </label>
+          <label class="ctl">Accidental
+            <select id="accidental" aria-label="Sharp or flat preference">
+              <option value="auto">Keep original</option>
+              <option value="sharp">Prefer #</option>
+              <option value="flat">Prefer b</option>
+            </select>
+          </label>
+          <label class="ctl">Size
+            <select id="fontSize" aria-label="Text size">
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="14" selected>14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+            <option value="24">24</option>
+            <option value="28">28</option>
+          </select>
+          </label>
+        </div>
+
+        <div class="group end">
+          <button class="ghost" id="previewBtn" type="button">Preview</button>
+          <button class="primary" id="saveBtn" type="button">Save</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="panel-head">
+          <span>Input</span>
+        </div>
+        <textarea id="input" spellcheck="false" wrap="off" placeholder="Paste chord chart here"></textarea>
+      </section>
+      <section class="panel out">
+        <div class="panel-head">
+          <span>Output</span>
+          <span class="hint" id="summary">0 found</span>
+        </div>
+        <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="Result appears here"></textarea>
+      </section>
+    </main>
+
+  </div>
+
+  <dialog class="msg" id="msgDlg">
+    <h2 id="msgTitle">Error</h2>
+    <p id="msgBody"></p>
+    <div class="dlg-actions">
+      <button class="primary" id="msgOk" type="button">OK</button>
+    </div>
+  </dialog>
+
+  <dialog class="preview" id="previewDlg" aria-label="Preview">
+    <div class="pv-bar">
+      <span>Preview</span>
+      <button class="ghost" id="previewClose" type="button">Close</button>
+    </div>
+    <iframe id="previewFrame" title="Preview"></iframe>
+  </dialog>
+
+  <dialog class="loading" id="loadDlg">
+    <div id="loadLabel">Working…</div>
+    <div class="progress"><span id="loadBar"></span></div>
+  </dialog>
+
+  <script>
+    (function () {
+      const SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+      const FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+      const NOTE_INDEX = {
+        C: 0, "B#": 0, "H#": 0,
+        "C#": 1, Db: 1,
+        D: 2,
+        "D#": 3, Eb: 3,
+        E: 4, Fb: 4,
+        F: 5, "E#": 5,
+        "F#": 6, Gb: 6,
+        G: 7,
+        "G#": 8, Ab: 8,
+        A: 9,
+        "A#": 10, Bb: 10, Hb: 10,
+        B: 11, Cb: 11, H: 11
+      };
+      const QUALITY_RE = /^(?:(?:maj|min|dim|aug|sus|add|alt|mmaj|maj|m|M|Δ|△|°|ø|\+|-)?(?:\d+)?(?:[-b#♯♭+]\d+)?|\([^)]*\)|no\d+)*$/i;
+      const TEXT_EXT = new Set([
+        "txt", "text", "md", "markdown", "csv", "tsv", "json", "xml", "html", "htm",
+        "css", "js", "ts", "log", "lrc", "cho", "crd", "chord", "chp", "tab", "ascii",
+        "ini", "yaml", "yml", "toml", "lt", "chopro", "pro", "enc"
+      ]);
+      const IMAGE_EXT = new Set(["png", "jpg", "jpeg", "webp", "gif", "bmp", "tif", "tiff", "avif"]);
+      const PDF_EXT = new Set(["pdf"]);
+      const PDF_PAGE_LIMIT = 20;
+
+      const inputEl = document.getElementById("input");
+      const outputEl = document.getElementById("output");
+      const semitoneEl = document.getElementById("semitones");
+      const accidentalEl = document.getElementById("accidental");
+      const fontSizeEl = document.getElementById("fontSize");
+      const summaryEl = document.getElementById("summary");
+      const fileInput = document.getElementById("fileInput");
+      const msgDlg = document.getElementById("msgDlg");
+      const loadDlg = document.getElementById("loadDlg");
+      const previewDlg = document.getElementById("previewDlg");
+      const previewFrame = document.getElementById("previewFrame");
+      const appEl = document.querySelector(".app");
+      const phoneMq = window.matchMedia("(max-width: 600px)");
+
+      function isIOS() {
+        return /iP(hone|ad|od)/.test(navigator.userAgent) ||
+          (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      }
+
+      function isTouchDevice() {
+        return window.matchMedia("(pointer: coarse)").matches;
+      }
+
+      // iOS Safari は 16px 未満の入力欄をタップすると画面を拡大するため、
+      // iOS のときだけ maximum-scale を付ける（ピンチ操作での拡大は引き続き可能）
+      if (isIOS()) {
+        const vp = document.querySelector('meta[name="viewport"]');
+        if (vp) vp.setAttribute("content", vp.getAttribute("content") + ", maximum-scale=1");
+      }
+
+      let sourceFileHandle = null;
+      let sourceFileName = "";
+      let ocrWorker = null;
+      let previewWin = null;
+
+      for (let i = 12; i >= -12; i--) {
+        const opt = document.createElement("option");
+        opt.value = String(i);
+        opt.textContent = i === 0 ? "0 (orig)" : (i > 0 ? "+" + i : String(i));
+        if (i === 0) opt.selected = true;
+        semitoneEl.appendChild(opt);
+      }
+
+      function extOf(name) {
+        const m = String(name || "").toLowerCase().match(/\.([a-z0-9]+)$/);
+        return m ? m[1] : "";
+      }
+
+      function isImageFile(file) {
+        const ext = extOf(file.name);
+        if (IMAGE_EXT.has(ext)) return true;
+        return (file.type || "").startsWith("image/");
+      }
+
+      function isTextFile(file) {
+        const ext = extOf(file.name);
+        if (TEXT_EXT.has(ext)) return true;
+        const t = file.type || "";
+        return t.startsWith("text/") || t === "application/json" || t === "application/xml";
+      }
+
+      function isPdfFile(file) {
+        const ext = extOf(file.name);
+        if (PDF_EXT.has(ext)) return true;
+        return (file.type || "") === "application/pdf";
+      }
+
+      function showError(title, body) {
+        document.getElementById("msgTitle").textContent = title;
+        document.getElementById("msgBody").textContent = body;
+        if (typeof msgDlg.showModal === "function") msgDlg.showModal();
+        else window.alert(title + "\n" + body);
+      }
+
+      function setLoading(on, label, ratio) {
+        document.getElementById("loadLabel").textContent = label || "Working…";
+        document.getElementById("loadBar").style.width = Math.round((ratio || 0) * 100) + "%";
+        if (on) {
+          if (!loadDlg.open && typeof loadDlg.showModal === "function") loadDlg.showModal();
+        } else if (loadDlg.open) {
+          loadDlg.close();
+        }
+      }
+
+      function normalizeAccidental(note) {
+        return note.replace(/♯/g, "#").replace(/♭/g, "b");
+      }
+
+      function noteToIndex(note) {
+        const n = normalizeAccidental(note);
+        return Object.prototype.hasOwnProperty.call(NOTE_INDEX, n) ? NOTE_INDEX[n] : -1;
+      }
+
+      function originalPrefersFlat(note) {
+        return /[b♭]/.test(note);
+      }
+
+      function transposeNote(note, semitones, mode) {
+        const idx = noteToIndex(note);
+        if (idx < 0) return note;
+        const shift = ((semitones % 12) + 12) % 12;
+        if (shift === 0) return note;
+        const next = (idx + shift) % 12;
+        const preferFlat = mode === "flat" || (mode === "auto" && originalPrefersFlat(note));
+        return (preferFlat ? FLAT : SHARP)[next];
+      }
+
+      function isValidQuality(quality) {
+        if (!quality) return true;
+        if (!QUALITY_RE.test(quality)) return false;
+        const stripped = quality.replace(/maj|min|dim|aug|sus|add|alt|no|mmaj/gi, "");
+        return !/[efhijklopqrstuvwxyz]/i.test(stripped);
+      }
+
+      function parseChord(token) {
+        if (!token || token === "N.C." || token === "NC" || token === "N.C") return null;
+        const wrapped = token.match(/^([\[\(\{])(.+)([\]\)\}])$/);
+        let inner = token;
+        let open = "";
+        let close = "";
+        if (wrapped) {
+          open = wrapped[1];
+          inner = wrapped[2];
+          close = wrapped[3];
+        }
+        const m = inner.match(/^([A-GH])([#b♯♭]?)(.*)$/);
+        if (!m) return null;
+        const root = m[1] + m[2];
+        if (noteToIndex(root) < 0) return null;
+        let rest = m[3];
+        let bass = "";
+        const slash = rest.lastIndexOf("/");
+        if (slash >= 0) {
+          const bassPart = rest.slice(slash + 1);
+          const bm = bassPart.match(/^([A-GH])([#b♯♭]?)$/);
+          if (!bm) return null;
+          bass = bm[1] + bm[2];
+          rest = rest.slice(0, slash);
+        }
+        if (!isValidQuality(rest)) return null;
+        return { root: root, quality: rest, bass: bass, open: open, close: close, inner: inner };
+      }
+
+      function formatChord(parsed, semitones, mode) {
+        const root = transposeNote(parsed.root, semitones, mode);
+        const bass = parsed.bass ? "/" + transposeNote(parsed.bass, semitones, mode) : "";
+        return parsed.open + root + parsed.quality + bass + parsed.close;
+      }
+
+      function isChordishLine(line) {
+        const trimmed = line.trim();
+        if (!trimmed) return false;
+        if (/^\s*(?:Key|Capo)\s*[:：]/i.test(line)) return true;
+        if (/[ぁ-んァ-ン一-龯]/.test(line)) return false;
+        const tokens = trimmed.split(/[\s|]+/).filter(Boolean);
+        if (tokens.length === 0) return false;
+        let hits = 0;
+        for (const t of tokens) {
+          if (t === "|" || t === "-" || t === "N.C." || t === "NC" || t === "N.C") {
+            hits += 1;
+            continue;
+          }
+          if (parseChord(t)) hits += 1;
+        }
+        return hits / tokens.length >= 0.55;
+      }
+
+      function isLyricishLine(line) {
+        return /[ぁ-んァ-ン一-龯]/.test(line);
+      }
+
+      function findChords(line, treatAsChordLine) {
+        const found = [];
+        const re = /(?<![A-Za-z0-9_])(?:\[[^\]]+\]|\([^)\s]+\)|\{[^}]+\}|[A-GH][#b♯♭]?[^\s|,.;:]*)/g;
+        let m;
+        while ((m = re.exec(line)) !== null) {
+          const raw = m[0];
+          if (!raw || raw === "N.C." || raw === "NC" || raw === "N.C") continue;
+          const parsed = parseChord(raw);
+          if (!parsed) continue;
+          const strong = parsed.quality.length > 0 || parsed.bass.length > 0 || parsed.open.length > 0;
+          if (!treatAsChordLine && !strong && parsed.root.length === 1 && !parsed.quality && !parsed.bass) continue;
+          found.push({ start: m.index, end: m.index + raw.length, raw: raw, parsed: parsed });
+        }
+        return found;
+      }
+
+      function applyReplacements(line, replacements) {
+        if (replacements.length === 0) return line;
+        const chars = line.split("");
+        for (let i = replacements.length - 1; i >= 0; i--) {
+          const r = replacements[i];
+          const oldLen = r.end - r.start;
+          const next = r.next;
+          const delta = next.length - oldLen;
+          if (delta > 0) {
+            let eat = 0;
+            for (let p = r.end; p < chars.length && eat < delta; p++) {
+              if (chars[p] !== " ") break;
+              const rest = chars.slice(p);
+              const nextNon = rest.findIndex((c) => c !== " ");
+              const spacesLeft = nextNon === -1 ? rest.length : nextNon;
+              if (spacesLeft <= 1) break;
+              eat += 1;
+            }
+            chars.splice(r.start, oldLen + eat, ...next.split(""));
+          } else if (delta < 0) {
+            chars.splice(r.start, oldLen, ...(next + " ".repeat(-delta)).split(""));
+          } else {
+            chars.splice(r.start, oldLen, ...next.split(""));
+          }
+        }
+        return chars.join("");
+      }
+
+      function transposeText(text, semitones, mode) {
+        const lines = text.split("\n");
+        let detected = 0;
+        let changed = 0;
+        const out = lines.map((line) => {
+          const chordLine = isChordishLine(line);
+          const chords = findChords(line, chordLine);
+          detected += chords.length;
+          const reps = chords.map((c) => {
+            const next = formatChord(c.parsed, semitones, mode);
+            if (next !== c.raw) changed += 1;
+            return { start: c.start, end: c.end, next: next };
+          });
+          return applyReplacements(line, reps);
+        });
+        return { text: out.join("\n"), detected: detected, changed: changed };
+      }
+
+      function looksLikeChordChart(text) {
+        const raw = String(text || "");
+        if (!raw.trim()) return false;
+        if (/(?:^|\n)\s*(?:Key|Capo)\s*[:：]/i.test(raw)) return true;
+        let chords = 0;
+        let chordLines = 0;
+        raw.split("\n").forEach((line) => {
+          const chordLine = isChordishLine(line);
+          if (chordLine) chordLines += 1;
+          chords += findChords(line, chordLine).length;
+        });
+        return chords >= 2 || chordLines >= 1;
+      }
+
+      function ensureBlankLineBeforeChords(text) {
+        const lines = String(text || "").split("\n");
+        const out = [];
+        lines.forEach(function (line) {
+          if (isChordishLine(line) && out.length > 0 && out[out.length - 1] !== "") {
+            out.push("");
+          }
+          out.push(line);
+        });
+        return out.join("\n");
+      }
+
+      function restoreOcrBars(text) {
+        return String(text || "").split("\n").map(function (line) {
+          return normalizePipeSpaces(replaceBarLookalikes(line));
+        }).join("\n");
+      }
+
+      function replaceBarLookalikes(line) {
+        return line
+          .replace(/(^|[\s|])[1Il](?=[\s]|$)/g, "$1|")
+          .replace(/(^|[\s|])[1Il](?=[A-G])/g, "$1|");
+      }
+
+      function normalizePipeSpaces(line) {
+        if (line.indexOf("|") < 0) return line;
+        const indent = line.match(/^\s*/)[0];
+        const body = line.slice(indent.length);
+        const leading = body.charAt(0) === "|";
+        const trailing = body.charAt(body.length - 1) === "|";
+        const segs = body.split("|").map(function (part) {
+          return part.trim();
+        }).filter(function (part) {
+          return part.length > 0;
+        });
+        if (!segs.length) return indent + "|";
+        let core = segs.join(" | ");
+        if (leading) core = "| " + core;
+        if (trailing) core = core + " |";
+        return indent + core;
+      }
+
+      function mergeWrappedOcrLines(ocrLines, imageWidth) {
+        const rows = (ocrLines || [])
+          .map((l) => ({
+            text: String(l.text || "").replace(/\s+/g, " ").trim(),
+            x0: l.bbox ? l.bbox.x0 : 0,
+            x1: l.bbox ? l.bbox.x1 : 0,
+            y0: l.bbox ? l.bbox.y0 : 0,
+            y1: l.bbox ? l.bbox.y1 : 0
+          }))
+          .filter((l) => l.text);
+        const merged = [];
+        rows.forEach((line) => {
+          if (!merged.length) {
+            merged.push(line);
+            return;
+          }
+          const prev = merged[merged.length - 1];
+          const prevH = Math.max(1, prev.y1 - prev.y0);
+          const gap = line.y0 - prev.y1;
+          const sameKind =
+            (isChordishLine(prev.text) && isChordishLine(line.text)) ||
+            (isLyricishLine(prev.text) && isLyricishLine(line.text)) ||
+            (!isLyricishLine(prev.text) && !isLyricishLine(line.text) &&
+              findChords(prev.text, true).length > 0 && findChords(line.text, true).length > 0);
+          const wrapped =
+            sameKind &&
+            gap < prevH * 0.85 &&
+            prev.x1 > imageWidth * 0.72 &&
+            line.x0 < imageWidth * 0.22;
+          if (wrapped) {
+            prev.text = prev.text + "  " + line.text;
+            prev.x1 = Math.max(prev.x1, line.x1);
+            prev.y1 = line.y1;
+          } else {
+            merged.push(line);
+          }
+        });
+        return merged.map((l) => l.text).join("\n");
+      }
+
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          const existing = document.querySelector('script[data-ocr="tesseract"]');
+          if (window.Tesseract) {
+            resolve();
+            return;
+          }
+          if (existing) {
+            existing.addEventListener("load", () => resolve());
+            existing.addEventListener("error", () => reject(new Error("load failed")));
+            return;
+          }
+          const s = document.createElement("script");
+          s.src = src;
+          s.async = true;
+          s.dataset.ocr = "tesseract";
+          s.onload = () => resolve();
+          s.onerror = () => reject(new Error("Failed to load OCR library."));
+          document.head.appendChild(s);
+        });
+      }
+
+      async function ensureOcrWorker() {
+        await loadScript("https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js");
+        if (!ocrWorker) {
+          ocrWorker = await window.Tesseract.createWorker("jpn+eng", 1, {
+            logger: function (m) {
+              if (m.status === "recognizing text" && typeof m.progress === "number") {
+                setLoading(true, "Reading image…", 0.15 + m.progress * 0.8);
+              } else if (m.status) {
+                setLoading(true, "OCR setup (" + m.status + ")", 0.12);
+              }
+            }
+          });
+        }
+        return ocrWorker;
+      }
+
+      function loadPdfJs() {
+        return new Promise((resolve, reject) => {
+          if (window.pdfjsLib) {
+            resolve();
+            return;
+          }
+          const existing = document.querySelector('script[data-lib="pdfjs"]');
+          if (existing) {
+            existing.addEventListener("load", () => resolve());
+            existing.addEventListener("error", () => reject(new Error("load failed")));
+            return;
+          }
+          const s = document.createElement("script");
+          s.src = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js";
+          s.async = true;
+          s.dataset.lib = "pdfjs";
+          s.onload = () => resolve();
+          s.onerror = () => reject(new Error("Failed to load PDF library."));
+          document.head.appendChild(s);
+        });
+      }
+
+      // pdf.js の getTextContent() が返す位置情報つきの断片から、
+      // コード表の桁揃えをできるだけ保った行テキストを組み立てる
+      function buildLinesFromTextContent(items) {
+        const rows = [];
+        (items || []).forEach(function (it) {
+          const str = it.str;
+          if (!str) return;
+          const x0 = it.transform[4];
+          const y0 = it.transform[5];
+          const w = it.width || 0;
+          const h = it.height || Math.abs(it.transform[3]) || 10;
+          rows.push({ str: str, x0: x0, x1: x0 + w, y: y0, h: h });
+        });
+        rows.sort(function (a, b) { return (b.y - a.y) || (a.x0 - b.x0); });
+        const lines = [];
+        rows.forEach(function (r) {
+          const last = lines[lines.length - 1];
+          if (last && Math.abs(last.y - r.y) < Math.max(2, r.h * 0.5)) {
+            last.items.push(r);
+          } else {
+            lines.push({ y: r.y, items: [r] });
+          }
+        });
+        return lines
+          .map(function (line) {
+            const its = line.items.slice().sort(function (a, b) { return a.x0 - b.x0; });
+            let text = "";
+            let prevEnd = null;
+            its.forEach(function (it) {
+              if (prevEnd === null) {
+                text = it.str;
+              } else {
+                const gap = it.x0 - prevEnd;
+                const charW = Math.max(2, (it.x1 - it.x0) / Math.max(1, it.str.length));
+                if (gap > charW * 0.35) {
+                  const spaces = Math.max(1, Math.min(24, Math.round(gap / charW)));
+                  text += " ".repeat(spaces) + it.str;
+                } else {
+                  text += it.str;
+                }
+              }
+              prevEnd = it.x1;
+            });
+            return text.replace(/\s+$/, "");
+          })
+          .filter(function (t) { return t.trim().length > 0; })
+          .join("\n");
+      }
+
+      async function ocrPdfPage(page) {
+        const viewport = page.getViewport({ scale: 2 });
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.ceil(viewport.width);
+        canvas.height = Math.ceil(viewport.height);
+        const ctx2d = canvas.getContext("2d");
+        await page.render({ canvasContext: ctx2d, viewport: viewport }).promise;
+        const worker = await ensureOcrWorker();
+        const result = await worker.recognize(canvas);
+        return ensureBlankLineBeforeChords(
+          restoreOcrBars(mergeWrappedOcrLines(result.data.lines || [], canvas.width))
+        );
+      }
+
+      async function extractChartFromPdf(file) {
+        setLoading(true, "Reading PDF…", 0.05);
+        try {
+          await loadPdfJs();
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+            "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
+          const buf = await file.arrayBuffer();
+          const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+          const pageCount = Math.min(pdf.numPages, PDF_PAGE_LIMIT);
+
+          // 1st pass: pull the embedded text layer from every page
+          const pages = [];
+          for (let i = 1; i <= pageCount; i++) {
+            setLoading(true, "Reading PDF page " + i + "/" + pageCount, 0.05 + ((i - 1) / pageCount) * 0.35);
+            const page = await pdf.getPage(i);
+            const tc = await page.getTextContent();
+            const text = buildLinesFromTextContent(tc.items);
+            // ページの文字がほぼ無ければ、テキストを持たない画像スキャンのページとみなす
+            const needsOcr = text.replace(/\s+/g, "").length < 8;
+            pages.push({ page: page, text: needsOcr ? null : text });
+          }
+
+          // 2nd pass: OCR only the pages that had no usable text layer
+          const results = [];
+          for (let i = 0; i < pages.length; i++) {
+            if (pages[i].text !== null) {
+              results.push(pages[i].text);
+              continue;
+            }
+            setLoading(true, "OCR on PDF page " + (i + 1) + "/" + pageCount, 0.4 + (i / pageCount) * 0.5);
+            results.push(await ocrPdfPage(pages[i].page));
+          }
+
+          const combined = results.join("\n\n").replace(/\n{3,}/g, "\n\n").trim();
+          if (!looksLikeChordChart(combined)) {
+            throw Object.assign(new Error("not-chart"), { code: "not-chart" });
+          }
+          return combined;
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      async function extractChartFromImage(file) {
+        setLoading(true, "Loading image…", 0.05);
+        const url = URL.createObjectURL(file);
+        try {
+          const img = await new Promise((resolve, reject) => {
+            const el = new Image();
+            el.onload = () => resolve(el);
+            el.onerror = () => reject(new Error("Could not display image.")); 
+            el.src = url;
+          });
+          const worker = await ensureOcrWorker();
+          setLoading(true, "Reading image…", 0.2);
+          const result = await worker.recognize(img);
+          const text = ensureBlankLineBeforeChords(restoreOcrBars(mergeWrappedOcrLines(result.data.lines || [], img.naturalWidth || img.width || 1)));
+          if (!looksLikeChordChart(text)) {
+            throw Object.assign(new Error("not-chart"), { code: "not-chart" });
+          }
+          return text;
+        } finally {
+          URL.revokeObjectURL(url);
+          setLoading(false);
+        }
+      }
+
+      function render() {
+        const semitones = Number(semitoneEl.value);
+        const mode = accidentalEl.value;
+        const source = inputEl.value;
+        const result = transposeText(source, semitones, mode);
+        outputEl.value = result.text;
+        summaryEl.textContent = result.detected + " found, " + result.changed + " changed";
+      }
+
+      function applyFontSize() {
+        document.documentElement.style.setProperty("--editor-size", fontSizeEl.value + "px");
+      }
+
+      function buildPreviewHtml(text) {
+        const html = [
+          "<!DOCTYPE html>",
+          "<html lang=\"ja\"><head><meta charset=\"UTF-8\" />",
+          "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />",
+          "<title>Preview</title>",
+          "<style>",
+          "*,*:before,*:after{box-sizing:border-box;}",
+          "html,body{margin:0;height:100%;background:#fff;}",
+          "body{padding:16px;}",
+          "#grid{display:grid;width:100%;height:100%;overflow:hidden;}",
+          ".col{min-width:0;min-height:0;overflow:hidden;padding:0 12px;border-right:1px solid #e5e5e5;}",
+          ".col:last-child{border-right:0;}",
+          "::selection{background:#000;color:#fff;}",
+          ".col pre{margin:0;font-family:Cascadia Mono,Consolas,MS Gothic,monospace;white-space:pre;color:#000;line-height:1.6;}",
+          "</style></head><body><div id=\"grid\"></div>",
+          "<script>",
+          "const lines = " + JSON.stringify(text.split("\n")) + ";",
+          "const grid = document.getElementById('grid');",
+          "function lineHeight(size){",
+          "  const probe=document.createElement('pre');",
+          "  probe.style.cssText='position:absolute;left:-9999px;margin:0;visibility:hidden;font-size:'+size+'px;line-height:1.6;font-family:Cascadia Mono,Consolas,MS Gothic,monospace;white-space:pre;';",
+          "  probe.textContent='Ågあ｜\\nÅgあ｜\\nÅgあ｜';",
+          "  document.body.appendChild(probe);",
+          "  const h=probe.getBoundingClientRect().height/3;",
+          "  probe.remove();",
+          "  return Math.max(h, size*1.6);",
+          "}",
+          "function paint(size, per){",
+          "  const cols=Math.max(1, Math.ceil(lines.length/per));",
+          "  grid.style.gridTemplateColumns='repeat('+cols+', minmax(0,1fr))';",
+          "  grid.innerHTML='';",
+          "  for(let c=0;c<cols;c++){",
+          "    const col=document.createElement('div');",
+          "    col.className='col';",
+          "    const pre=document.createElement('pre');",
+          "    pre.style.fontSize=size+'px';",
+          "    pre.textContent=lines.slice(c*per,(c+1)*per).join('\\n');",
+          "    col.appendChild(pre);",
+          "    grid.appendChild(col);",
+          "  }",
+          "}",
+          "function heightCut(){",
+          "  return Array.prototype.some.call(grid.querySelectorAll('.col'), function(col){",
+          "    const pre=col.querySelector('pre');",
+          "    return pre.getBoundingClientRect().bottom > col.getBoundingClientRect().bottom - 2;",
+          "  });",
+          "}",
+          "function widthCut(){",
+          "  return Array.prototype.some.call(grid.querySelectorAll('.col'), function(col){",
+          "    const pre=col.querySelector('pre');",
+          "    return pre.scrollWidth>pre.clientWidth+1;",
+          "  });",
+          "}",
+          "function layout(){",
+          "  const h=grid.clientHeight;",
+          "  if(h<20||grid.clientWidth<20) return;",
+          "  for(let size=36; size>=6; size--){",
+          "    const lh=lineHeight(size);",
+          "    let per=Math.max(1, Math.floor((h - lh * 0.35) / lh));",
+          "    paint(size, per);",
+          "    while(heightCut() && per>1){ per--; paint(size, per); }",
+          "    if(!heightCut() && !widthCut()) return;",
+          "  }",
+          "  let per=Math.max(1, Math.floor(h/lineHeight(6)));",
+          "  paint(6, per);",
+          "  while(heightCut() && per>1){ per--; paint(6, per); }",
+          "}",
+          "window.addEventListener('resize', layout);",
+          "requestAnimationFrame(function(){ requestAnimationFrame(layout); });",
+          "<" + "/script></body></html>"
+        ].join("");
+        return html;
+      }
+
+      function openPreviewOverlay(html) {
+        if (!previewDlg.open) previewDlg.showModal();
+        previewFrame.srcdoc = html;
+      }
+
+      function closePreviewOverlay() {
+        if (previewDlg.open) previewDlg.close();
+      }
+
+      function openPreview() {
+        const text = outputEl.value;
+        if (!text.trim()) {
+          showError("Nothing to preview", "Output is empty. Enter a chord chart first.");
+          return;
+        }
+        const html = buildPreviewHtml(text);
+        // スマホ・タブレットでは別ウィンドウ（新しいタブ）ではなく、画面全体に重ねて表示する
+        if (isTouchDevice()) {
+          openPreviewOverlay(html);
+          return;
+        }
+        const width = Math.max(800, Math.round(screen.availWidth * 0.92));
+        const height = Math.max(600, Math.round(screen.availHeight * 0.92));
+        const left = Math.max(0, Math.round((screen.availWidth - width) / 2));
+        const top = Math.max(0, Math.round((screen.availHeight - height) / 2));
+        const features = "popup=yes,resizable=yes,scrollbars=no,width=" + width + ",height=" + height + ",left=" + left + ",top=" + top;
+        if (previewWin && !previewWin.closed) {
+          previewWin.focus();
+        } else {
+          previewWin = window.open("", "chordPreview", features);
+        }
+        if (!previewWin) {
+          showError("Can't open preview", "Pop-up blocked. Please allow pop-ups for this page.");
+          return;
+        }
+        previewWin.document.open();
+        previewWin.document.write(html);
+        previewWin.document.close();
+        previewWin.focus();
+      }
+
+      async function ingestFile(file, handle) {
+        if (!file) return;
+        sourceFileHandle = handle || null;
+        sourceFileName = file.name || "";
+        try {
+          if (isPdfFile(file)) {
+            const text = await extractChartFromPdf(file);
+            inputEl.value = text;
+            render();
+            return;
+          }
+          if (isImageFile(file)) {
+            const text = await extractChartFromImage(file);
+            inputEl.value = text;
+            render();
+            return;
+          }
+          if (isTextFile(file)) {
+            const text = await file.text();
+            inputEl.value = text;
+            render();
+            return;
+          }
+          showError(
+            "Unsupported file",
+            "Choose a text, image, or PDF file.\nSelected file: " + (file.name || "(none)")
+          );
+        } catch (err) {
+          if (err && err.code === "not-chart") {
+            showError(
+              "Not recognized as a chord chart",
+              "This doesn't look like a chord chart. Choose a file with chords and lyrics."
+            );
+            return;
+          }
+          showError("Failed to load", err && err.message ? err.message : String(err));
+        }
+      }
+
+      async function openFile() {
+        if (window.showOpenFilePicker) {
+          try {
+            const handles = await window.showOpenFilePicker({
+              multiple: false,
+              excludeAcceptAllOption: false
+            });
+            const handle = handles[0];
+            const file = await handle.getFile();
+            await ingestFile(file, handle);
+            return;
+          } catch (err) {
+            if (err && err.name === "AbortError") return;
+          }
+        }
+        fileInput.value = "";
+        fileInput.click();
+      }
+
+      function downloadText(name, text) {
+        const url = URL.createObjectURL(new Blob([text], { type: "text/plain;charset=utf-8" }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+      }
+
+      async function saveOutput() {
+        const n = Number(semitoneEl.value);
+        const tag = (n >= 0 ? "+" : "") + n;
+        let suggested = "transposed" + tag + ".txt";
+        if (sourceFileName) {
+          suggested = sourceFileName.replace(/\.[^.]+$/, "") + "_transposed" + tag + ".txt";
+        }
+
+        // Windows の Edge / Chrome など: 保存先を選んで保存
+        if (window.showSaveFilePicker) {
+          try {
+            const opts = {
+              suggestedName: suggested,
+              types: [{ description: "Text file", accept: { "text/plain": [".txt"] } }]
+            };
+            if (sourceFileHandle) opts.startIn = sourceFileHandle;
+            const handle = await window.showSaveFilePicker(opts);
+            const writable = await handle.createWritable();
+            await writable.write(outputEl.value);
+            await writable.close();
+          } catch (err) {
+            if (err && err.name === "AbortError") return;
+            showError("Failed to save", err && err.message ? err.message : String(err));
+          }
+          return;
+        }
+
+        // iPhone / iPad: 共有メニュー（「ファイルに保存」を選べる）
+        try {
+          if (isIOS() && navigator.share && navigator.canShare) {
+            const file = new File([outputEl.value], suggested, { type: "text/plain" });
+            if (navigator.canShare({ files: [file] })) {
+              await navigator.share({ files: [file] });
+              return;
+            }
+          }
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+
+        // Android Chrome など: ダウンロードとして保存
+        try {
+          downloadText(suggested, outputEl.value);
+        } catch (err) {
+          showError("Failed to save", err && err.message ? err.message : String(err));
+        }
+      }
+
+      // スマホ縦向き: 「入力テキスト」「変換後テキスト」の見出しをタップして表示を切り替える
+      const panelHeads = Array.prototype.slice.call(document.querySelectorAll(".panel-head"));
+
+      function currentView() {
+        return appEl.getAttribute("data-view") === "out" ? "out" : "in";
+      }
+
+      function syncPanelHeads() {
+        panelHeads.forEach(function (head) {
+          const isOut = head.parentElement.classList.contains("out");
+          if (phoneMq.matches) {
+            head.setAttribute("role", "button");
+            head.tabIndex = 0;
+            head.setAttribute("aria-expanded", String((currentView() === "out") === isOut));
+          } else {
+            head.removeAttribute("role");
+            head.removeAttribute("tabindex");
+            head.removeAttribute("aria-expanded");
+          }
+        });
+      }
+
+      function setView(view) {
+        appEl.setAttribute("data-view", view);
+        syncPanelHeads();
+      }
+
+      panelHeads.forEach(function (head) {
+        const view = head.parentElement.classList.contains("out") ? "out" : "in";
+        head.addEventListener("click", function () {
+          if (phoneMq.matches) setView(view);
+        });
+        head.addEventListener("keydown", function (e) {
+          if (phoneMq.matches && (e.key === "Enter" || e.key === " ")) {
+            e.preventDefault();
+            setView(view);
+          }
+        });
+      });
+      if (phoneMq.addEventListener) phoneMq.addEventListener("change", syncPanelHeads);
+      else phoneMq.addListener(syncPanelHeads);
+      syncPanelHeads();
+
+      function onTransposeSettingChange() {
+        render();
+        if (phoneMq.matches) setView("out");
+      }
+
+      inputEl.addEventListener("input", render);
+      semitoneEl.addEventListener("change", onTransposeSettingChange);
+      accidentalEl.addEventListener("change", onTransposeSettingChange);
+      fontSizeEl.addEventListener("change", applyFontSize);
+      document.getElementById("openBtn").addEventListener("click", openFile);
+      document.getElementById("saveBtn").addEventListener("click", saveOutput);
+      document.getElementById("previewBtn").addEventListener("click", openPreview);
+      document.getElementById("previewClose").addEventListener("click", closePreviewOverlay);
+      previewDlg.addEventListener("close", function () {
+        previewFrame.srcdoc = "";
+      });
+      document.getElementById("msgOk").addEventListener("click", function () {
+        msgDlg.close();
+      });
+      fileInput.addEventListener("change", function () {
+        const file = fileInput.files && fileInput.files[0];
+        ingestFile(file, null);
+      });
+
+      applyFontSize();
+      render();
+    })();
+  </script>
+</body>
+</html>

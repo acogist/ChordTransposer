@@ -170,6 +170,10 @@
       outline-offset: 2px;
     }
 
+    #openBtn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    #openBtn .ico { flex: none; }
+    .sep { flex: none; width: 1px; height: 24px; background: var(--line); }
+
     #fileInput { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
 
     /* ---------- Editor panes ---------- */
@@ -366,8 +370,8 @@
       .toolbar { display: grid; grid-template-columns: auto minmax(0, 1fr); }
       .brand { grid-area: 1 / 1; }
       .group.end { grid-area: 1 / 2; justify-self: end; margin-left: 0; }
-      .group.open { grid-area: 2 / 1; }
-      .group.settings { grid-area: 2 / 2; }
+      .group.settings { grid-area: 2 / 1 / 3 / 3; }
+      .sep { display: none; }
       main {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, minmax(0, 1fr));
@@ -395,13 +399,14 @@
 
       .app {
         min-height: 0;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         grid-template-rows: auto auto minmax(0, 1fr) auto;
         column-gap: 8px;
       }
 
       /* ヘッダー内の要素を .app のグリッドに直接配置する */
-      header, .toolbar, .group.open, .group.end { display: contents; }
+      header, .toolbar, .group.end { display: contents; }
+      .sep { display: none; }
 
       .brand {
         grid-column: 1 / -1;
@@ -469,16 +474,17 @@
         transform: rotate(-135deg);
       }
 
-      #openBtn, #previewBtn, #saveBtn {
+      /* Open は左上（Transpose の左）。下段は Preview / Save */
+      #openBtn { height: 40px; padding: 0 16px; }
+      #previewBtn, #saveBtn {
         grid-row: 4;
         margin-block: 8px calc(8px + var(--pb));
         padding: 0 4px;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      #openBtn { grid-column: 1; margin-left: var(--pl); }
-      #previewBtn { grid-column: 2; }
-      #saveBtn { grid-column: 3; margin-right: var(--pr); }
+      #previewBtn { grid-column: 1; margin-left: var(--pl); }
+      #saveBtn { grid-column: 2; margin-right: var(--pr); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -501,12 +507,10 @@
           <span>Chord Transposer</span>
         </div>
 
-        <div class="group open">
-          <button class="ghost" id="openBtn" type="button">Open</button>
-          <input id="fileInput" type="file" tabindex="-1" aria-hidden="true" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
-        </div>
-
         <div class="group settings">
+          <button class="primary" id="openBtn" type="button"><svg class="ico" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5V15a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V8.5A1.5 1.5 0 0 0 16 7H9.5L8 5H4a1.5 1.5 0 0 0-1.5 1.5z"/></svg><span>Open</span></button>
+          <input id="fileInput" type="file" tabindex="-1" aria-hidden="true" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
+          <span class="sep" aria-hidden="true"></span>
           <label class="ctl">Transpose
             <select id="semitones" aria-label="Semitones to transpose"></select>
           </label>
@@ -538,7 +542,7 @@
 
         <div class="group end">
           <button class="ghost" id="previewBtn" type="button">Preview</button>
-          <button class="primary" id="saveBtn" type="button">Save</button>
+          <button class="ghost" id="saveBtn" type="button">Save</button>
         </div>
       </div>
     </header>

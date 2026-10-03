@@ -56,6 +56,7 @@
     .app {
       height: 100vh;
       height: 100dvh;
+      height: var(--app-h, 100dvh);
       min-height: 280px;
       display: grid;
       grid-template-rows: auto minmax(0, 1fr);
@@ -174,6 +175,8 @@
     #openBtn .ico { flex: none; }
     .sep { flex: none; width: 1px; height: 24px; background: var(--line); }
 
+    #helpBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; font-size: 16px; line-height: 1; }
+
     #fileInput { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
 
     /* ---------- Editor panes ---------- */
@@ -280,6 +283,14 @@
     }
     dialog.msg .dlg-actions { display: flex; justify-content: flex-end; }
 
+    dialog.help { width: min(480px, calc(100vw - 32px)); max-height: calc(var(--app-h, 100dvh) - 32px); }
+    dialog.help[open] { display: flex; flex-direction: column; }
+    .help-body { flex: 1; min-height: 0; overflow-y: auto; margin-bottom: 16px; -webkit-overflow-scrolling: touch; }
+    .help-list { margin: 0; padding-left: 20px; font-size: 13px; line-height: 1.7; color: var(--muted); }
+    .help-list li { margin-bottom: 10px; }
+    .help-list li:last-child { margin-bottom: 0; }
+    .help-list b { color: var(--ink); }
+
     dialog.loading {
       width: min(360px, calc(100vw - 32px));
       border: 1px solid var(--ink);
@@ -314,6 +325,7 @@
       width: 100vw;
       height: 100vh;
       height: 100dvh;
+      height: var(--app-h, 100dvh);
       max-width: none;
       max-height: none;
       margin: 0;
@@ -358,6 +370,7 @@
       :root { --ctl-h: 44px; }
       select { font-size: 16px; }   /* iOS Safari のフォーカス時ズーム防止 */
       button { font-size: 14px; }
+      html, body { overflow: hidden; }   /* ページ全体はスクロールさせない */
     }
 
     /* ---------- Tablet portrait / narrow window: stack the panes ---------- */
@@ -476,6 +489,15 @@
 
       /* Open は左上（Transpose の左）。下段は Preview / Save */
       #openBtn { height: 40px; padding: 0 16px; }
+      #helpBtn {
+        grid-row: 1;
+        grid-column: 2;
+        justify-self: end;
+        align-self: start;
+        width: 36px;
+        height: 36px;
+        margin: calc(6px + env(safe-area-inset-top, 0px)) var(--pr) 0 0;
+      }
       #previewBtn, #saveBtn {
         grid-row: 4;
         margin-block: 8px calc(8px + var(--pb));
@@ -543,6 +565,7 @@
         <div class="group end">
           <button class="ghost" id="previewBtn" type="button">Preview</button>
           <button class="ghost" id="saveBtn" type="button">Save</button>
+          <button class="ghost" id="helpBtn" type="button" aria-label="How to use">?</button>
         </div>
       </div>
     </header>
@@ -552,7 +575,7 @@
         <div class="panel-head">
           <span>Input</span>
         </div>
-        <textarea id="input" spellcheck="false" wrap="off" placeholder="Paste chord chart here"></textarea>
+        <textarea id="input" spellcheck="false" wrap="off" placeholder="Open a file or enter chords here"></textarea>
       </section>
       <section class="panel out">
         <div class="panel-head">
@@ -570,6 +593,24 @@
     <p id="msgBody"></p>
     <div class="dlg-actions">
       <button class="primary" id="msgOk" type="button">OK</button>
+    </div>
+  </dialog>
+
+  <dialog class="msg help" id="helpDlg" aria-labelledby="helpTitle">
+    <h2 id="helpTitle">How to use</h2>
+    <div class="help-body">
+      <ol class="help-list">
+        <li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>
+        <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>
+        <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>
+        <li><b>Accidental</b> – Switch between # and b.</li>
+        <li><b>Size</b> – Change the text size.</li>
+        <li><b>Preview</b> – See the whole result at once.</li>
+        <li><b>Save</b> – Save the result.</li>
+      </ol>
+    </div>
+    <div class="dlg-actions">
+      <button class="primary" id="helpClose" type="button">Close</button>
     </div>
   </dialog>
 
@@ -1157,13 +1198,13 @@
           "<title>Preview</title>",
           "<style>",
           "*,*:before,*:after{box-sizing:border-box;}",
-          "html,body{margin:0;height:100%;background:#fff;}",
+          "html,body{margin:0;height:100%;background:#fff;-webkit-text-size-adjust:100%;text-size-adjust:100%;}",
           "body{padding:16px;}",
           "#grid{display:grid;width:100%;height:100%;overflow:hidden;}",
-          ".col{min-width:0;min-height:0;overflow:hidden;padding:0 12px;border-right:1px solid #e5e5e5;}",
+          ".col{min-width:0;min-height:0;overflow:hidden;padding:0 18px 0 12px;border-right:1px solid #e5e5e5;}",
           ".col:last-child{border-right:0;}",
           "::selection{background:#000;color:#fff;}",
-          ".col pre{margin:0;font-family:Cascadia Mono,Consolas,MS Gothic,monospace;white-space:pre;color:#000;line-height:1.6;}",
+          ".col pre{margin:0;width:max-content;font-family:Cascadia Mono,Consolas,MS Gothic,monospace;white-space:pre;color:#000;line-height:1.6;}",
           "</style></head><body><div id=\"grid\"></div>",
           "<script>",
           "const lines = " + JSON.stringify(text.split("\n")) + ";",
@@ -1200,7 +1241,9 @@
           "function widthCut(){",
           "  return Array.prototype.some.call(grid.querySelectorAll('.col'), function(col){",
           "    const pre=col.querySelector('pre');",
-          "    return pre.scrollWidth>pre.clientWidth+1;",
+          "    const cs=getComputedStyle(col);",
+          "    const avail=col.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);",
+          "    return pre.getBoundingClientRect().width>avail-2;",
           "  });",
           "}",
           "function layout(){",
@@ -1453,6 +1496,25 @@
       fileInput.addEventListener("change", function () {
         const file = fileInput.files && fileInput.files[0];
         ingestFile(file, null);
+      });
+
+      // Android Chrome などはアドレスバー分 100vh が実際の表示領域より高くなるため、実寸で高さを合わせる
+      function fitHeight() {
+        document.documentElement.style.setProperty("--app-h", window.innerHeight + "px");
+      }
+      fitHeight();
+      window.addEventListener("resize", fitHeight);
+      window.addEventListener("orientationchange", fitHeight);
+
+      // 使い方ダイアログ
+      const helpDlg = document.getElementById("helpDlg");
+      document.getElementById("helpBtn").addEventListener("click", function () {
+        if (typeof helpDlg.showModal === "function") helpDlg.showModal();
+      });
+      document.getElementById("helpClose").addEventListener("click", function () { helpDlg.close(); });
+      helpDlg.addEventListener("click", function (e) {
+        const r = helpDlg.getBoundingClientRect();
+        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) helpDlg.close();
       });
 
       applyFontSize();

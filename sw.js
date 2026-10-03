@@ -1,5 +1,5 @@
 // アプリ更新時は VERSION を変更すると、古いキャッシュが破棄されます
-const VERSION = "v4";
+const VERSION = "v5";
 const CACHE = "chord-transposer-" + VERSION;
 const ASSETS = [
   "./", "./index.html", "./manifest.json",

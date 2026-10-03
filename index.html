@@ -63,7 +63,7 @@
 
     /* ---------- Toolbar ---------- */
     header {
-      padding: 12px var(--pr) 12px var(--pl);
+      padding: calc(12px + env(safe-area-inset-top, 0px)) var(--pr) 12px var(--pl);
       border-bottom: 1px solid var(--line);
       background: var(--paper);
     }
@@ -170,7 +170,7 @@
       outline-offset: 2px;
     }
 
-    #fileInput { display: none; }
+    #fileInput { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
 
     /* ---------- Editor panes ---------- */
     main {
@@ -406,7 +406,7 @@
       .brand {
         grid-column: 1 / -1;
         grid-row: 1;
-        padding: 10px var(--pr) 0 var(--pl);
+        padding: calc(10px + env(safe-area-inset-top, 0px)) var(--pr) 0 var(--pl);
       }
 
       .group.settings {
@@ -471,7 +471,7 @@
 
       #openBtn, #previewBtn, #saveBtn {
         grid-row: 4;
-        margin-block: 8px;
+        margin-block: 8px calc(8px + var(--pb));
         padding: 0 4px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -503,7 +503,7 @@
 
         <div class="group open">
           <button class="ghost" id="openBtn" type="button">Open</button>
-          <input id="fileInput" type="file" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
+          <input id="fileInput" type="file" tabindex="-1" aria-hidden="true" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
         </div>
 
         <div class="group settings">
@@ -623,6 +623,9 @@
       const previewFrame = document.getElementById("previewFrame");
       const appEl = document.querySelector(".app");
       const phoneMq = window.matchMedia("(max-width: 600px)");
+
+      // スマホでは accept を外し、端末内のあらゆるファイルを選べるようにする（種類は読み込み時に判定）
+      if (window.matchMedia("(pointer: coarse)").matches) fileInput.removeAttribute("accept");
 
       function isIOS() {
         return /iP(hone|ad|od)/.test(navigator.userAgent) ||
@@ -1298,6 +1301,12 @@
       }
 
       async function openFile() {
+        // スマホ・タブレット: タップ直後に標準のファイル選択を開く（iOS / Android 共通）
+        if (isTouchDevice() || !window.showOpenFilePicker) {
+          fileInput.value = "";
+          fileInput.click();
+          return;
+        }
         if (window.showOpenFilePicker) {
           try {
             const handles = await window.showOpenFilePicker({

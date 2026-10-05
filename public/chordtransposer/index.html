@@ -175,7 +175,39 @@
     #openBtn .ico { flex: none; }
     .sep { flex: none; width: 1px; height: 24px; background: var(--line); }
 
-    #helpBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; font-size: 16px; line-height: 1; }
+    #settingsBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+    #settingsBtn svg { flex: none; width: 18px; height: 18px; }
+
+    /* 設定メニュー（歯車ボタンの下に表示） */
+    .menu {
+      position: fixed;
+      z-index: 1000;
+      min-width: 148px;
+      padding: 4px;
+      border: 1px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .menu[hidden] { display: none; }
+    .menu button {
+      display: block;
+      width: 100%;
+      height: 40px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .menu button:active { background: var(--line); }
+    .menu button:focus-visible { outline-offset: -2px; }
+    @media (hover: hover) {
+      .menu button:hover { background: var(--hover-fill); }
+    }
 
     #fileInput { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; pointer-events: none; }
 
@@ -290,7 +322,12 @@
     .help-list li { margin-bottom: 10px; }
     .help-list li:last-child { margin-bottom: 0; }
     .help-list b { color: var(--ink); }
-    dialog.msg p.help-version { margin: 0 0 16px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--subtle); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+    dialog.about { width: min(560px, calc(100vw - 32px)); height: min(640px, calc(100% - 32px)); }
+    dialog.about[open] { display: flex; flex-direction: column; }
+    dialog.msg p.about-version { margin: 0 0 12px; color: var(--subtle); font-size: 12px; font-variant-numeric: tabular-nums; }
+    .about-body { flex: 1 1 auto; min-height: 0; overflow: auto; margin-bottom: 16px; border: 1px solid var(--line); border-radius: var(--radius); -webkit-overflow-scrolling: touch; }
+    .about-body pre { margin: 0; padding: 12px; color: var(--muted); font-family: var(--mono); font-size: 11px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; user-select: text; }
 
     dialog.loading {
       width: min(360px, calc(100vw - 32px));
@@ -489,7 +526,7 @@
 
       /* Open は左上（Transpose の左）。下段は Preview / Save */
       #openBtn { height: 40px; padding: 0 16px; }
-      #helpBtn {
+      #settingsBtn {
         grid-row: 1;
         grid-column: 2;
         justify-self: end;
@@ -565,7 +602,9 @@
         <div class="group end">
           <button class="ghost" id="previewBtn" type="button">Preview</button>
           <button class="ghost" id="saveBtn" type="button">Save</button>
-          <button class="ghost" id="helpBtn" type="button" aria-label="How to use">?</button>
+          <button class="ghost" id="settingsBtn" type="button" aria-label="Settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.89 5.11 L10.33 2.55 L13.67 2.55 L14.11 5.11 A7.2 7.2 0 0 1 15.38 5.64 L17.51 4.14 L19.86 6.49 L18.36 8.62 A7.2 7.2 0 0 1 18.89 9.89 L21.45 10.33 L21.45 13.67 L18.89 14.11 A7.2 7.2 0 0 1 18.36 15.38 L19.86 17.51 L17.51 19.86 L15.38 18.36 A7.2 7.2 0 0 1 14.11 18.89 L13.67 21.45 L10.33 21.45 L9.89 18.89 A7.2 7.2 0 0 1 8.62 18.36 L6.49 19.86 L4.14 17.51 L5.64 15.38 A7.2 7.2 0 0 1 5.11 14.11 L2.55 13.67 L2.55 10.33 L5.11 9.89 A7.2 7.2 0 0 1 5.64 8.62 L4.14 6.49 L6.49 4.14 L8.62 5.64 A7.2 7.2 0 0 1 9.89 5.11 Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
         </div>
       </div>
     </header>
@@ -609,9 +648,22 @@
         <li><b>Save</b> – Save the result.</li>
       </ol>
     </div>
-    <p class="help-version" id="swVersion">Version: …</p>
     <div class="dlg-actions">
       <button class="primary" id="helpClose" type="button">Close</button>
+    </div>
+  </dialog>
+
+  <div class="menu" id="settingsMenu" role="menu" aria-label="Settings" hidden>
+    <button type="button" role="menuitem" id="menuHelp">Help</button>
+    <button type="button" role="menuitem" id="menuAbout">About</button>
+  </div>
+
+  <dialog class="msg about" id="aboutDlg" aria-labelledby="aboutTitle">
+    <h2 id="aboutTitle">About</h2>
+    <p class="about-version" id="swVersion">Version: …</p>
+    <div class="about-body"><pre id="licenseText">Loading…</pre></div>
+    <div class="dlg-actions">
+      <button class="primary" id="aboutClose" type="button">Close</button>
     </div>
   </dialog>
 
@@ -1514,7 +1566,7 @@
       window.addEventListener("resize", fitHeight);
       window.addEventListener("orientationchange", fitHeight);
 
-      // 使い方ダイアログ
+      // 使い方（Help）ダイアログ
       const helpDlg = document.getElementById("helpDlg");
       // バージョン表示: デプロイ番号 + 有効な Service Worker のキャッシュ番号（食い違うときだけ併記）
       async function showSwVersion() {
@@ -1533,14 +1585,78 @@
         el.textContent = "Version: " + page + (cache && cache !== page ? " (cache: " + cache + ")" : "");
       }
 
-      document.getElementById("helpBtn").addEventListener("click", function () {
-        showSwVersion();
+      // 設定（歯車）メニュー: Help / About
+      const settingsBtn = document.getElementById("settingsBtn");
+      const settingsMenu = document.getElementById("settingsMenu");
+      const aboutDlg = document.getElementById("aboutDlg");
+
+      function closeMenu(returnFocus) {
+        if (settingsMenu.hidden) return;
+        settingsMenu.hidden = true;
+        settingsBtn.setAttribute("aria-expanded", "false");
+        if (returnFocus) settingsBtn.focus();
+      }
+      function openMenu() {
+        const r = settingsBtn.getBoundingClientRect();
+        settingsMenu.style.top = r.bottom + 6 + "px";
+        settingsMenu.style.right = Math.max(8, document.documentElement.clientWidth - r.right) + "px";
+        settingsMenu.hidden = false;
+        settingsBtn.setAttribute("aria-expanded", "true");
+        document.getElementById("menuHelp").focus();
+      }
+      settingsBtn.addEventListener("click", function () {
+        if (settingsMenu.hidden) openMenu(); else closeMenu(true);
+      });
+      document.addEventListener("click", function (e) {
+        if (!settingsMenu.hidden && !settingsMenu.contains(e.target) && !settingsBtn.contains(e.target)) closeMenu(false);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (settingsMenu.hidden) return;
+        if (e.key === "Escape") { closeMenu(true); return; }
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          const items = Array.prototype.slice.call(settingsMenu.querySelectorAll("button"));
+          const i = items.indexOf(document.activeElement);
+          const next = e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
+          items[next].focus();
+        }
+      });
+      window.addEventListener("resize", function () { closeMenu(false); });
+
+      // About: ライセンス本文は THIRD_PARTY_LICENSES.md を読み込んで表示
+      let licenseLoaded = false;
+      async function loadLicenses() {
+        if (licenseLoaded) return;
+        const el = document.getElementById("licenseText");
+        try {
+          const res = await fetch("THIRD_PARTY_LICENSES.md");
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          el.textContent = await res.text();
+          licenseLoaded = true;
+        } catch (e) {
+          el.textContent = "Could not load the license information.\nPlease check your connection and try again.";
+        }
+      }
+
+      document.getElementById("menuHelp").addEventListener("click", function () {
+        closeMenu(false);
         if (typeof helpDlg.showModal === "function") helpDlg.showModal();
       });
-      document.getElementById("helpClose").addEventListener("click", function () { helpDlg.close(); });
-      helpDlg.addEventListener("click", function (e) {
-        const r = helpDlg.getBoundingClientRect();
-        if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) helpDlg.close();
+      document.getElementById("menuAbout").addEventListener("click", function () {
+        closeMenu(false);
+        showSwVersion();
+        loadLicenses();
+        if (typeof aboutDlg.showModal === "function") aboutDlg.showModal();
+      });
+
+      // ダイアログ: Close ボタン / 枠外クリックで閉じる
+      [[helpDlg, "helpClose"], [aboutDlg, "aboutClose"]].forEach(function (pair) {
+        const dlg = pair[0];
+        document.getElementById(pair[1]).addEventListener("click", function () { dlg.close(); });
+        dlg.addEventListener("click", function (e) {
+          const r = dlg.getBoundingClientRect();
+          if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+        });
       });
 
       applyFontSize();

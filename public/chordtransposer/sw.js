@@ -2,7 +2,7 @@
 const VERSION = "__BUILD__";
 const PREFIX = "chord-transposer-";
 const CACHE = PREFIX + VERSION;
-const CORE = ["./", "index.html", "manifest.json"];
+const CORE = ["./", "index.html", "manifest.json", "THIRD_PARTY_LICENSES.md"];
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

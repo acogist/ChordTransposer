@@ -682,7 +682,7 @@
 
   <script>
     (function () {
-      // デプロイ時に GitHub Actions が __BUILD__ を実行番号へ置き換える（未置換なら dev 表示）
+      // デプロイ時に GitHub Actions がこの値を実行番号／コミットSHAへ置き換える（未置換なら dev 表示）
       const APP_VERSION = "__BUILD__";
       const SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
       const FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
@@ -1572,7 +1572,8 @@
       async function showSwVersion() {
         const el = document.getElementById("swVersion");
         const PREFIX = "chord-transposer-";
-        const page = /^\d+$/.test(APP_VERSION) ? APP_VERSION : "dev";
+        // 置換済みなら実行番号・コミットSHA・タグなど何でも表示。未置換のプレースホルダ（先頭が _）は dev
+        const page = /^[0-9A-Za-z][\w.-]*$/.test(APP_VERSION) ? APP_VERSION : "dev";
         let cache = "";
         try {
           if (window.caches) {

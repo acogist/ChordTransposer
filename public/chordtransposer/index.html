@@ -175,7 +175,8 @@
     #openBtn .ico { flex: none; }
     .sep { flex: none; width: 1px; height: 24px; background: var(--line); }
 
-    #settingsBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+    #settingsBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; border-color: transparent; display: inline-flex; align-items: center; justify-content: center; }
+    @media (hover: hover) { #settingsBtn:hover { border-color: transparent; } }
     #settingsBtn svg { flex: none; width: 18px; height: 18px; }
 
     /* 設定メニュー（歯車ボタンの下に表示） */
@@ -654,7 +655,7 @@
   </dialog>
 
   <div class="menu" id="settingsMenu" role="menu" aria-label="Settings" hidden>
-    <button type="button" role="menuitem" id="menuHelp">Help</button>
+    <button type="button" role="menuitem" id="menuHelp">How to use</button>
     <button type="button" role="menuitem" id="menuAbout">About</button>
   </div>
 
@@ -1566,7 +1567,7 @@
       window.addEventListener("resize", fitHeight);
       window.addEventListener("orientationchange", fitHeight);
 
-      // 使い方（Help）ダイアログ
+      // 使い方（How to use）ダイアログ
       const helpDlg = document.getElementById("helpDlg");
       // バージョン表示: デプロイ番号 + 有効な Service Worker のキャッシュ番号（食い違うときだけ併記）
       async function showSwVersion() {
@@ -1586,7 +1587,7 @@
         el.textContent = "Version: " + page + (cache && cache !== page ? " (cache: " + cache + ")" : "");
       }
 
-      // 設定（歯車）メニュー: Help / About
+      // 設定（歯車）メニュー: How to use / About
       const settingsBtn = document.getElementById("settingsBtn");
       const settingsMenu = document.getElementById("settingsMenu");
       const aboutDlg = document.getElementById("aboutDlg");

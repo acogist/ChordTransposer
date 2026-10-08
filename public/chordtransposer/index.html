@@ -177,7 +177,7 @@
 
     #settingsBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; border-color: transparent; display: inline-flex; align-items: center; justify-content: center; }
     @media (hover: hover) { #settingsBtn:hover { border-color: transparent; } }
-    #settingsBtn svg { flex: none; width: 18px; height: 18px; }
+    #settingsBtn svg { flex: none; width: 28px; height: 28px; }   /* ♯マークと同じ大きさ */
 
     /* 設定メニュー（歯車ボタンの下に表示） */
     .menu {
@@ -606,7 +606,7 @@
           <button class="ghost" id="previewBtn" type="button">Preview</button>
           <button class="ghost" id="saveBtn" type="button">Save</button>
           <button class="ghost" id="settingsBtn" type="button" aria-label="Settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.89 5.11 L10.33 2.55 L13.67 2.55 L14.11 5.11 A7.2 7.2 0 0 1 15.38 5.64 L17.51 4.14 L19.86 6.49 L18.36 8.62 A7.2 7.2 0 0 1 18.89 9.89 L21.45 10.33 L21.45 13.67 L18.89 14.11 A7.2 7.2 0 0 1 18.36 15.38 L19.86 17.51 L17.51 19.86 L15.38 18.36 A7.2 7.2 0 0 1 14.11 18.89 L13.67 21.45 L10.33 21.45 L9.89 18.89 A7.2 7.2 0 0 1 8.62 18.36 L6.49 19.86 L4.14 17.51 L5.64 15.38 A7.2 7.2 0 0 1 5.11 14.11 L2.55 13.67 L2.55 10.33 L5.11 9.89 A7.2 7.2 0 0 1 5.64 8.62 L4.14 6.49 L6.49 4.14 L8.62 5.64 A7.2 7.2 0 0 1 9.89 5.11 Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.89 5.11 L10.33 2.55 L13.67 2.55 L14.11 5.11 A7.2 7.2 0 0 1 15.38 5.64 L17.51 4.14 L19.86 6.49 L18.36 8.62 A7.2 7.2 0 0 1 18.89 9.89 L21.45 10.33 L21.45 13.67 L18.89 14.11 A7.2 7.2 0 0 1 18.36 15.38 L19.86 17.51 L17.51 19.86 L15.38 18.36 A7.2 7.2 0 0 1 14.11 18.89 L13.67 21.45 L10.33 21.45 L9.89 18.89 A7.2 7.2 0 0 1 8.62 18.36 L6.49 19.86 L4.14 17.51 L5.64 15.38 A7.2 7.2 0 0 1 5.11 14.11 L2.55 13.67 L2.55 10.33 L5.11 9.89 A7.2 7.2 0 0 1 5.64 8.62 L4.14 6.49 L6.49 4.14 L8.62 5.64 A7.2 7.2 0 0 1 9.89 5.11 Z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
       </div>
@@ -755,7 +755,7 @@
       for (let i = 12; i >= -12; i--) {
         const opt = document.createElement("option");
         opt.value = String(i);
-        opt.textContent = i === 0 ? "0 (orig)" : (i > 0 ? "+" + i : String(i));
+        opt.textContent = i === 0 ? "0" : (i > 0 ? "+" + i : String(i));
         if (i === 0) opt.selected = true;
         semitoneEl.appendChild(opt);
       }

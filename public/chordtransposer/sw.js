@@ -1,7 +1,7 @@
-// Build number is stamped by GitHub Actions (__BUILD__ -> workflow run number).
-const VERSION = "__BUILD__";
+// Fixed cache name: fetches are network first, so the cache only needs to hold the latest copy.
+// Older caches of this app (e.g. "chord-transposer-<build>") are removed on activate.
 const PREFIX = "chord-transposer-";
-const CACHE = PREFIX + VERSION;
+const CACHE = PREFIX + "cache";
 const CORE = ["./", "index.html", "manifest.json", "THIRD_PARTY_LICENSES.md"];
 
 self.addEventListener("install", (event) => {

@@ -8,26 +8,26 @@ they are not modified, and their original license notices are preserved in
 the files delivered by the CDN. The notices are reproduced here for
 reference.
 
-The version number of this application is shown at the top of the About
-dialog.
 
+## 1. Libraries loaded from the CDN
 
-## 1. Software that is loaded when needed
+PDF.js and Tesseract.js are loaded only when you open a PDF or an image file.
 
-These are loaded only when you open a PDF or an image file.
-
-### PDF.js (pdfjs-dist 3.11.174)
+### PDF.js
+- Package: pdfjs-dist
 - Purpose: reading text from PDF files
 - License: Apache License 2.0 (full text in section 3)
 - Copyright: 2023 Mozilla Foundation
 - Source: https://github.com/mozilla/pdf.js
 
-### Tesseract.js 5.x (5.1.1)
+### Tesseract.js
+- Package: tesseract.js
 - Purpose: reading text from images and scanned PDFs (OCR)
 - License: Apache License 2.0 (full text in section 3)
 - Source: https://github.com/naptha/tesseract.js
 
-### Tesseract.js Core 5.1.1
+### Tesseract.js Core
+- Package: tesseract.js-core (loaded by Tesseract.js)
 - Purpose: the OCR engine used by Tesseract.js, compiled to WebAssembly
 - License: Apache License 2.0 (full text in section 3)
 - Contains: the Tesseract OCR engine (Apache License 2.0) and the
@@ -37,11 +37,14 @@ These are loaded only when you open a PDF or an image file.
 - Tesseract OCR: https://github.com/tesseract-ocr/tesseract
 
 ### Tesseract language data (Japanese "jpn" and English "eng")
+- Package: @tesseract.js-data/jpn, @tesseract.js-data/eng (loaded by Tesseract.js)
 - Purpose: trained models used for OCR
 - License: Apache License 2.0 (full text in section 3)
 - Distributed by the @tesseract.js-data packages (MIT License),
   derived from the "tessdata_best" models
 - Source: https://github.com/tesseract-ocr/tessdata_best
+
+<!-- New libraries are added above this line by scripts/update-third-party-licenses.mjs -->
 
 
 ## 2. Components bundled inside Tesseract.js

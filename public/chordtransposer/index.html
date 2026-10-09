@@ -326,7 +326,6 @@
 
     dialog.about { width: min(560px, calc(100vw - 32px)); height: min(640px, calc(100% - 32px)); }
     dialog.about[open] { display: flex; flex-direction: column; }
-    dialog.msg p.about-version { margin: 0 0 4px; color: var(--subtle); font-size: 12px; font-variant-numeric: tabular-nums; }
     dialog.msg p.about-license { margin: 0 0 12px; color: var(--subtle); font-size: 12px; }
     .about-license a { color: inherit; }
     .about-body { flex: 1 1 auto; min-height: 0; overflow: auto; margin-bottom: 16px; border: 1px solid var(--line); border-radius: var(--radius); -webkit-overflow-scrolling: touch; }
@@ -663,7 +662,6 @@
 
   <dialog class="msg about" id="aboutDlg" aria-labelledby="aboutTitle">
     <h2 id="aboutTitle">About</h2>
-    <p class="about-version" id="swVersion">Version: …</p>
     <p class="about-license">© 2026 ktkwmr · Licensed under the <a href="https://github.com/acogist/ChordTransposer/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></p>
     <div class="about-body"><pre id="licenseText">Loading…</pre></div>
     <div class="dlg-actions">
@@ -686,8 +684,6 @@
 
   <script>
     (function () {
-      // デプロイ時に GitHub Actions がこの値を実行番号／コミットSHAへ置き換える（未置換なら dev 表示）
-      const APP_VERSION = "__BUILD__";
       const SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
       const FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
       const NOTE_INDEX = {
@@ -1572,23 +1568,6 @@
 
       // 使い方（How to use）ダイアログ
       const helpDlg = document.getElementById("helpDlg");
-      // バージョン表示: デプロイ番号 + 有効な Service Worker のキャッシュ番号（食い違うときだけ併記）
-      async function showSwVersion() {
-        const el = document.getElementById("swVersion");
-        const PREFIX = "chord-transposer-";
-        // 置換済みなら実行番号・コミットSHA・タグなど何でも表示。未置換のプレースホルダ（先頭が _）は dev
-        const page = /^[0-9A-Za-z][\w.-]*$/.test(APP_VERSION) ? APP_VERSION : "dev";
-        let cache = "";
-        try {
-          if (window.caches) {
-            cache = (await caches.keys())
-              .filter(function (k) { return k.indexOf(PREFIX) === 0; })
-              .map(function (k) { return k.slice(PREFIX.length); })
-              .join(", ");
-          }
-        } catch (e) {}
-        el.textContent = "Version: " + page + (cache && cache !== page ? " (cache: " + cache + ")" : "");
-      }
 
       // 設定（歯車）メニュー: How to use / About
       const settingsBtn = document.getElementById("settingsBtn");
@@ -1636,7 +1615,8 @@
         try {
           const res = await fetch("THIRD_PARTY_LICENSES.md");
           if (!res.ok) throw new Error("HTTP " + res.status);
-          el.textContent = await res.text();
+          // 自動更新用のマーカー（HTML コメント）は表示しない
+          el.textContent = (await res.text()).replace(/<!--[\s\S]*?-->\n?/g, "");
           licenseLoaded = true;
         } catch (e) {
           el.textContent = "Could not load the license information.\nPlease check your connection and try again.";
@@ -1649,7 +1629,6 @@
       });
       document.getElementById("menuAbout").addEventListener("click", function () {
         closeMenu(false);
-        showSwVersion();
         loadLicenses();
         if (typeof aboutDlg.showModal === "function") aboutDlg.showModal();
       });

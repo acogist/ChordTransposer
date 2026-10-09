@@ -4,6 +4,8 @@ A web app that transposes chord charts. Paste a chord chart or open a text, PDF,
 
 コード譜を転調する Web アプリです。コード譜を貼り付けるか、テキスト・PDF・画像ファイルを開き、転調幅を選ぶだけで変換できます。
 
+**▶ https://ktkwmr.com/chordtransposer/**
+
 ## Features / 機能
 
 - **Transpose** chords up or down by semitones, with `#` / `b` notation switching

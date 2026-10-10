@@ -323,6 +323,8 @@
     .help-list li { margin-bottom: 10px; }
     .help-list li:last-child { margin-bottom: 0; }
     .help-list b { color: var(--ink); }
+    ul.help-list { list-style: disc; }
+    .help-list a { color: inherit; }
 
     dialog.about { width: min(560px, calc(100vw - 32px)); height: min(640px, calc(100% - 32px)); }
     dialog.about[open] { display: flex; flex-direction: column; }
@@ -655,8 +657,25 @@
     </div>
   </dialog>
 
+  <dialog class="msg help" id="privacyDlg" aria-labelledby="privacyTitle">
+    <h2 id="privacyTitle">Privacy</h2>
+    <div class="help-body">
+      <ul class="help-list">
+        <li><b>Your files stay on your device</b> – Chord charts you open or type are processed only in your browser. They are never uploaded to a server. This app has no accounts, cookies, ads, or analytics.</li>
+        <li><b>Libraries from a CDN</b> – When you open a PDF or an image, the PDF.js and Tesseract.js libraries and OCR language data are downloaded from jsDelivr (cdn.jsdelivr.net). As with any website, jsDelivr receives your IP address and browser information. Your file is not sent.</li>
+        <li><b>Data saved in your browser</b> – To work offline, the app and the OCR language data are saved in your browser's storage. You can delete them by clearing this site's data in your browser settings.</li>
+        <li><b>Server logs</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security.</li>
+        <li><b>Contact</b> – Questions and feedback: <a href="https://github.com/acogist/ChordTransposer/issues" target="_blank" rel="noopener">GitHub Issues</a>.</li>
+      </ul>
+    </div>
+    <div class="dlg-actions">
+      <button class="primary" id="privacyClose" type="button">Close</button>
+    </div>
+  </dialog>
+
   <div class="menu" id="settingsMenu" role="menu" aria-label="Settings" hidden>
     <button type="button" role="menuitem" id="menuHelp">How to use</button>
+    <button type="button" role="menuitem" id="menuPrivacy">Privacy</button>
     <button type="button" role="menuitem" id="menuAbout">About</button>
   </div>
 
@@ -1568,8 +1587,9 @@
 
       // 使い方（How to use）ダイアログ
       const helpDlg = document.getElementById("helpDlg");
+      const privacyDlg = document.getElementById("privacyDlg");
 
-      // 設定（歯車）メニュー: How to use / About
+      // 設定（歯車）メニュー: How to use / Privacy / About
       const settingsBtn = document.getElementById("settingsBtn");
       const settingsMenu = document.getElementById("settingsMenu");
       const aboutDlg = document.getElementById("aboutDlg");
@@ -1627,6 +1647,10 @@
         closeMenu(false);
         if (typeof helpDlg.showModal === "function") helpDlg.showModal();
       });
+      document.getElementById("menuPrivacy").addEventListener("click", function () {
+        closeMenu(false);
+        if (typeof privacyDlg.showModal === "function") privacyDlg.showModal();
+      });
       document.getElementById("menuAbout").addEventListener("click", function () {
         closeMenu(false);
         loadLicenses();
@@ -1634,7 +1658,7 @@
       });
 
       // ダイアログ: Close ボタン / 枠外クリックで閉じる
-      [[helpDlg, "helpClose"], [aboutDlg, "aboutClose"]].forEach(function (pair) {
+      [[helpDlg, "helpClose"], [privacyDlg, "privacyClose"], [aboutDlg, "aboutClose"]].forEach(function (pair) {
         const dlg = pair[0];
         document.getElementById(pair[1]).addEventListener("click", function () { dlg.close(); });
         dlg.addEventListener("click", function (e) {

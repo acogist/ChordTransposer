@@ -40,6 +40,7 @@ The same notice is shown in the app under ⚙ → **Privacy**.
 public/
   _redirects                    # / → /chordtransposer/
   _headers                      # security headers (CSP etc.)
+  404.html                      # page for unknown URLs (status 404)
   robots.txt
   sitemap.xml
   chordtransposer/

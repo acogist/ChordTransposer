@@ -2,7 +2,7 @@
 // Older caches of this app (e.g. "chord-transposer-<build>") are removed on activate.
 const PREFIX = "chord-transposer-";
 const CACHE = PREFIX + "cache";
-const CORE = ["./", "index.html", "manifest.json", "THIRD_PARTY_LICENSES.md"];
+const CORE = ["./", "index.html", "ja/", "manifest.json", "THIRD_PARTY_LICENSES.md"];
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();

@@ -1,0 +1,44 @@
+name: Build Japanese page
+
+# Regenerates public/chordtransposer/ja/index.html from
+# public/chordtransposer/index.html and commits the change.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "public/chordtransposer/index.html"
+      - "public/chordtransposer/ja/index.html"
+      - "scripts/build-ja.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-ja
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate ja/index.html
+        run: node scripts/build-ja.mjs
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/chordtransposer/ja/index.html
+          git commit -m "ja/index.html を index.html から再生成"
+          git push

@@ -2,6 +2,10 @@
   "name": "chordtransposer",
   "compatibility_date": "2026-10-01",
   "observability": { "enabled": true },
+  // Regenerates public/chordtransposer/ja/index.html from index.html before deploy / dev
+  "build": { "command": "node scripts/build-ja.mjs" },
+  // Required by `wrangler preview`, which Workers Builds runs for non-production branches
+  "previews": {},
   "assets": {
     "directory": "./public",
     // Unknown URLs get public/404.html with status 404

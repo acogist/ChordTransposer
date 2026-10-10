@@ -334,8 +334,9 @@
 
     /* プレビュー / 保存（出力の見出しの右端） */
     .out-actions { display: flex; gap: 6px; }
-    .out-actions button { height: 30px; padding: 0 12px; }
-    .btn-ico { display: none; }
+    /* プレビュー（全画面）・保存（ダウンロード）はアイコンのみ（名前は aria-label / title） */
+    .out-actions button { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 30px; padding: 0; }
+    .btn-ico { display: block; flex: none; width: 18px; height: 18px; }
 
 
     textarea {
@@ -488,7 +489,8 @@
       select { font-size: 16px; }   /* iOS Safari のフォーカス時ズーム防止 */
       button { font-size: 14px; }
       .panel-head { height: 48px; }
-      .out-actions button { height: 38px; padding: 0 14px; }
+      .out-actions button { width: 40px; height: 38px; }
+      .out-actions .btn-ico { width: 20px; height: 20px; }
       html, body { overflow: hidden; }   /* ページ全体はスクロールさせない */
       .app { position: fixed; inset: 0; height: auto; }   /* 実際の表示領域に合わせる */
     }
@@ -517,7 +519,7 @@
       .group { gap: 6px 12px; }
       main { gap: 10px; padding-top: 10px; padding-bottom: calc(10px + var(--pb)); }
       .panel-head { height: 36px; }
-      .out-actions button { height: 28px; padding: 0 10px; }
+      .out-actions button { width: 32px; height: 28px; }
       textarea { padding-top: 10px; padding-bottom: 10px; }
     }
 
@@ -584,9 +586,8 @@
         box-shadow: var(--paper-shadow);
       }
       .out-actions { grid-area: 1 / 2; display: flex; gap: 8px; }
-      .out-actions button { width: 44px; height: 44px; padding: 0; display: inline-flex; align-items: center; justify-content: center; }
-      .out-actions .btn-ico { display: block; width: 22px; height: 22px; }
-      .out-actions .btn-txt { display: none; }
+      .out-actions button { width: 44px; height: 44px; }
+      .out-actions .btn-ico { width: 22px; height: 22px; }
       .app[data-view="in"] #output,
       .app[data-view="out"] .panel:not(.out) { display: none; }
     }
@@ -724,8 +725,8 @@
         <div class="panel-head">
           <span data-i18n="output">出力</span>
           <div class="out-actions">
-            <button class="ghost" id="previewBtn" type="button" aria-label="プレビュー" title="プレビュー" data-i18n-attr="aria-label:preview;title:preview"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg><span class="btn-txt" data-i18n="preview">プレビュー</span></button>
-            <button class="ghost" id="saveBtn" type="button" aria-label="保存" title="保存" data-i18n-attr="aria-label:save;title:save"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5M4 16.5V19a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-2.5"/></svg><span class="btn-txt" data-i18n="save">保存</span></button>
+            <button class="ghost" id="previewBtn" type="button" aria-label="プレビュー" title="プレビュー" data-i18n-attr="aria-label:preview;title:preview"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5M4 4l5.5 5.5M20 4l-5.5 5.5M4 20l5.5-5.5M20 20l-5.5-5.5"/></svg></button>
+            <button class="ghost" id="saveBtn" type="button" aria-label="保存" title="保存" data-i18n-attr="aria-label:save;title:save"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5M4 16.5V19a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-2.5"/></svg></button>
           </div>
         </div>
         <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="ここに結果が表示されます" data-i18n-attr="placeholder:output.placeholder"></textarea>

@@ -334,7 +334,9 @@
 
     /* プレビュー / 保存（出力の見出しの右端） */
     .out-actions { display: flex; gap: 6px; }
-    .out-actions button { height: 30px; padding: 0 12px; }
+    /* プレビュー（全画面）・保存（ダウンロード）はアイコンのみ（名前は aria-label / title） */
+    .out-actions button { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 30px; padding: 0; }
+    .btn-ico { display: block; flex: none; width: 18px; height: 18px; }
 
 
     textarea {
@@ -487,7 +489,8 @@
       select { font-size: 16px; }   /* iOS Safari のフォーカス時ズーム防止 */
       button { font-size: 14px; }
       .panel-head { height: 48px; }
-      .out-actions button { height: 38px; padding: 0 14px; }
+      .out-actions button { width: 40px; height: 38px; }
+      .out-actions .btn-ico { width: 20px; height: 20px; }
       html, body { overflow: hidden; }   /* ページ全体はスクロールさせない */
       .app { position: fixed; inset: 0; height: auto; }   /* 実際の表示領域に合わせる */
     }
@@ -516,22 +519,24 @@
       .group { gap: 6px 12px; }
       main { gap: 10px; padding-top: 10px; padding-bottom: calc(10px + var(--pb)); }
       .panel-head { height: 36px; }
-      .out-actions button { height: 28px; padding: 0 10px; }
+      .out-actions button { width: 32px; height: 28px; }
       textarea { padding-top: 10px; padding-bottom: 10px; }
     }
 
     /* ---------- Phone portrait / tablet portrait: 入力・出力をタブで切り替え ----------
-       プレビュー / 保存は出力タブの下（親指が届く位置）にだけ表示し、入力タブでは入力欄を下端まで広げる */
+       1行目: 入力 / 出力のタブ と 右にプレビュー・保存（アイコン）、2行目: テキスト欄。
+       テキスト欄は入力・出力とも同じ大きさ */
     @media (max-width: 600px), (max-width: 900px) and (min-height: 521px) {
       main {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 10px 8px;
         padding: 10px var(--pr) calc(10px + max(var(--pb), 8px)) var(--pl);   /* 角丸・ホームバーに掛からないよう余白を確保 */
         border-top: 1px solid var(--line);
       }
       .tabs {
-        flex: none;
+        grid-area: 1 / 1;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 4px;
@@ -553,16 +558,19 @@
         color: var(--ink);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       }
-      /* テキスト欄そのものをカードにし、出力ではその下にボタンを置く */
-      .panel, .panel.out {   /* .panel.out の白背景も消す（ボタンの後ろに白い帯が出ないように） */
-        flex: 1 1 0;
-        gap: 10px;
+      /* テキスト欄そのものをカードにする */
+      .panel {
+        grid-area: 2 / 1 / 3 / 3;
         border: 0;
         border-radius: 0;
         background: transparent;
         box-shadow: none;
         overflow: visible;
       }
+      /* 出力の見出し（プレビュー・保存）とテキスト欄を main のグリッドに直接配置する */
+      main .panel.out, .panel.out .panel-head { display: contents; }
+      .panel-head > span { display: none; }
+      .panel:not(.out) .panel-head { display: none; }
       .panel textarea {
         border: 1px solid var(--line-strong);
         border-radius: 12px;
@@ -572,21 +580,15 @@
       .panel textarea:focus { border-color: var(--ink); }
       .panel.out textarea,
       .panel.out textarea:focus {
+        grid-area: 2 / 1 / 3 / 3;
+        min-height: 0;
         border-color: transparent;
         box-shadow: var(--paper-shadow);
       }
-      .panel-head { display: none; }
-      .panel.out .panel-head {
-        order: 1;
-        display: block;
-        height: auto;
-        padding: 0;
-        border: 0;
-      }
-      .panel.out .panel-head > span { display: none; }
-      .out-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }   /* 左右の端は上のテキスト欄にそろえる */
-      .out-actions button { height: 44px; padding: 0 4px; overflow: hidden; text-overflow: ellipsis; }
-      .app[data-view="in"] .panel.out,
+      .out-actions { grid-area: 1 / 2; display: flex; gap: 8px; }
+      .out-actions button { width: 44px; height: 44px; }
+      .out-actions .btn-ico { width: 22px; height: 22px; }
+      .app[data-view="in"] #output,
       .app[data-view="out"] .panel:not(.out) { display: none; }
     }
 
@@ -723,8 +725,8 @@
         <div class="panel-head">
           <span data-i18n="output">出力</span>
           <div class="out-actions">
-            <button class="ghost" id="previewBtn" type="button" data-i18n="preview">プレビュー</button>
-            <button class="ghost" id="saveBtn" type="button" data-i18n="save">保存</button>
+            <button class="ghost" id="previewBtn" type="button" aria-label="プレビュー" title="プレビュー" data-i18n-attr="aria-label:preview;title:preview"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5M4 4l5.5 5.5M20 4l-5.5 5.5M4 20l5.5-5.5M20 20l-5.5-5.5"/></svg></button>
+            <button class="ghost" id="saveBtn" type="button" aria-label="保存" title="保存" data-i18n-attr="aria-label:save;title:save"><svg class="btn-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5M4 16.5V19a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 20 19v-2.5"/></svg></button>
           </div>
         </div>
         <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="ここに結果が表示されます" data-i18n-attr="placeholder:output.placeholder"></textarea>

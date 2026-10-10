@@ -322,7 +322,11 @@
       font-weight: 700;
       transition: box-shadow 0.15s;
     }
-    .panel.out .panel-head { border-bottom-color: var(--out-line); }
+    .panel.out .panel-head { border-bottom-color: var(--out-line); padding-right: 6px; }
+
+    /* プレビュー / 保存（出力の見出しの右端） */
+    .out-actions { display: flex; gap: 6px; }
+    .out-actions button { height: 30px; padding: 0 12px; }
 
 
     textarea {
@@ -474,6 +478,8 @@
       :root { --ctl-h: 44px; }
       select { font-size: 16px; }   /* iOS Safari のフォーカス時ズーム防止 */
       button { font-size: 14px; }
+      .panel-head { height: 48px; }
+      .out-actions button { height: 38px; padding: 0 14px; }
       html, body { overflow: hidden; }   /* ページ全体はスクロールさせない */
       .app { position: fixed; inset: 0; height: auto; }   /* 実際の表示領域に合わせる */
     }
@@ -484,7 +490,7 @@
     }
     @media (max-width: 900px) and (min-height: 521px) {
       .group + .group { padding-left: 0; border-left: 0; }
-      /* 1段目: タイトル と 右端に「プレビュー / 保存」、2段目: 「開く」と設定 */
+      /* 1段目: タイトル と 右端に設定、2段目: 「開く」と移調などの設定 */
       .toolbar { display: grid; grid-template-columns: auto minmax(0, 1fr); }
       .brand { grid-area: 1 / 1; }
       .group.end { grid-area: 1 / 2; justify-self: end; margin-left: 0; }
@@ -505,20 +511,21 @@
       .group + .group { padding-left: 12px; }
       .group { gap: 6px 12px; }
       main { gap: 10px; padding-top: 10px; padding-bottom: calc(10px + var(--pb)); }
-      .panel-head { height: 32px; }
+      .panel-head { height: 36px; }
+      .out-actions button { height: 28px; padding: 0 10px; }
       textarea { padding-top: 10px; padding-bottom: 10px; }
     }
 
     /* ---------- Phone portrait ----------
-       上: タイトルと設定 / 中: 入力・出力（タブで切り替え） /
-       下: 操作ボタン（親指が届く位置） */
+       上: タイトルと設定 / 中: 入力・出力（タブで切り替え）。
+       プレビュー / 保存は出力タブの下（親指が届く位置）にだけ表示し、入力タブでは入力欄を下端まで広げる */
     @media (max-width: 600px) {
       :root { --pad-x: 14px; }
 
       .app {
         min-height: 0;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-template-rows: auto auto minmax(0, 1fr) auto;
+        grid-template-rows: auto auto minmax(0, 1fr);
         column-gap: 8px;
       }
 
@@ -554,9 +561,8 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        padding: 10px var(--pr) 10px var(--pl);
+        padding: 10px var(--pr) calc(10px + max(var(--pb), 8px)) var(--pl);   /* 角丸・ホームバーに掛からないよう余白を確保 */
         border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
       }
       .tabs {
         flex: none;
@@ -581,12 +587,39 @@
         color: var(--ink);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       }
-      .panel { flex: 1 1 0; }
+      /* スマホではテキスト欄そのものをカードにし、その下にボタンを置く */
+      .panel {
+        flex: 1 1 0;
+        gap: 10px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+      }
+      .panel textarea {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: border-color 0.15s;
+      }
+      .panel textarea:focus { border-color: var(--ink); }
       .panel-head { display: none; }
+      .panel.out .panel-head {
+        order: 1;
+        display: block;
+        height: auto;
+        padding: 0;
+        border: 0;
+      }
+      .panel.out .panel-head > span { display: none; }
+      .out-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 6px; }
+      .out-actions button { height: 44px; padding: 0 4px; overflow: hidden; text-overflow: ellipsis; }
       .app[data-view="in"] .panel.out,
       .app[data-view="out"] .panel:not(.out) { display: none; }
 
-      /* Open は左上（Transpose の左）。下段は Preview / Save */
+      /* Open は左上（移調の左） */
       #openBtn { flex: none; width: 44px; height: 44px; }
       #openBtn .ico { width: 24px; height: 24px; }
       #settingsBtn {
@@ -598,15 +631,6 @@
         height: 36px;
         margin: calc(6px + env(safe-area-inset-top, 0px)) var(--pr) 0 0;
       }
-      #previewBtn, #saveBtn {
-        grid-row: 4;
-        margin-block: 8px calc(10px + max(var(--pb), 12px));   /* 角丸・ホームバーに掛からないよう最低限の余白を確保 */
-        padding: 0 4px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      #previewBtn { grid-column: 1; margin-left: max(var(--pl), 20px); }
-      #saveBtn { grid-column: 2; margin-right: max(var(--pr), 20px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -663,8 +687,6 @@
         </div>
 
         <div class="group end">
-          <button class="ghost" id="previewBtn" type="button" data-i18n="preview">Preview</button>
-          <button class="ghost" id="saveBtn" type="button" data-i18n="save">Save</button>
           <button class="ghost" id="settingsBtn" type="button" aria-label="Settings" data-i18n-attr="aria-label:settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.89 5.11 L10.33 2.55 L13.67 2.55 L14.11 5.11 A7.2 7.2 0 0 1 15.38 5.64 L17.51 4.14 L19.86 6.49 L18.36 8.62 A7.2 7.2 0 0 1 18.89 9.89 L21.45 10.33 L21.45 13.67 L18.89 14.11 A7.2 7.2 0 0 1 18.36 15.38 L19.86 17.51 L17.51 19.86 L15.38 18.36 A7.2 7.2 0 0 1 14.11 18.89 L13.67 21.45 L10.33 21.45 L9.89 18.89 A7.2 7.2 0 0 1 8.62 18.36 L6.49 19.86 L4.14 17.51 L5.64 15.38 A7.2 7.2 0 0 1 5.11 14.11 L2.55 13.67 L2.55 10.33 L5.11 9.89 A7.2 7.2 0 0 1 5.64 8.62 L4.14 6.49 L6.49 4.14 L8.62 5.64 A7.2 7.2 0 0 1 9.89 5.11 Z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
@@ -686,6 +708,10 @@
       <section class="panel out">
         <div class="panel-head">
           <span data-i18n="output">Output</span>
+          <div class="out-actions">
+            <button class="ghost" id="previewBtn" type="button" data-i18n="preview">Preview</button>
+            <button class="ghost" id="saveBtn" type="button" data-i18n="save">Save</button>
+          </div>
         </div>
         <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="Result appears here" data-i18n-attr="placeholder:output.placeholder"></textarea>
       </section>

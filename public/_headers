@@ -1,0 +1,13 @@
+# Security headers for every response (Cloudflare Workers static assets).
+# CSP notes:
+# - 'unsafe-inline': the app's script and styles are written inline in index.html,
+#   and the preview (iframe srcdoc / pop-up window) runs an inline script.
+# - cdn.jsdelivr.net: PDF.js, Tesseract.js, its WebAssembly core, and OCR language data.
+# - blob: in worker-src: PDF.js and Tesseract.js start their workers from blob URLs.
+# - 'wasm-unsafe-eval': Tesseract.js runs the OCR engine as WebAssembly.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' https://cdn.jsdelivr.net blob: data:; worker-src 'self' blob:; frame-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()

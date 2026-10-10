@@ -39,6 +39,7 @@ The same notice is shown in the app under ⚙ → **Privacy**.
 ```
 public/
   _redirects                    # / → /chordtransposer/
+  _headers                      # security headers (CSP etc.)
   robots.txt
   sitemap.xml
   chordtransposer/
@@ -57,6 +58,9 @@ wrangler.jsonc                  # Cloudflare Workers (static assets)
 
 There is no build step. The files in `public/` are served as they are.
 ビルド工程はなく、`public/` のファイルをそのまま配信します。
+
+When you load a script, worker, or data from a new external host, add it to the `Content-Security-Policy` in `public/_headers`, or the browser will block it.
+新しい外部サイトからスクリプトやデータを読み込むときは、`public/_headers` の `Content-Security-Policy` にそのホストを追加してください（追加しないとブラウザにブロックされます）。
 
 ## Development / 開発
 

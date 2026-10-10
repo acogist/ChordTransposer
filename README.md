@@ -16,21 +16,23 @@ A web app that transposes chord charts. Paste a chord chart or open a text, PDF,
   変換結果のプレビューと保存
 - **Installable PWA** that also works offline after the first visit
   ホーム画面に追加でき、一度開けばオフラインでも動作
+- **English / Japanese UI**, chosen from your browser language and switchable in ⚙ (or with `?lang=en` / `?lang=ja`)
+  英語・日本語の表示に対応。ブラウザの言語で自動選択し、⚙ メニューや `?lang=en` / `?lang=ja` で切り替え可能
 
 ## Privacy / プライバシー
 
 - Files you open and text you enter are processed only in your browser and are never uploaded to a server. The app has no accounts, cookies, ads, or analytics.
 - When you open a PDF or an image, PDF.js, Tesseract.js, and the OCR language data are downloaded from the jsDelivr CDN. jsDelivr receives your IP address and browser information, but not your file.
-- For offline use, the app and the OCR language data are saved in your browser's storage. Clear this site's data to remove them.
+- For offline use, the app and the OCR language data are saved in your browser's storage, along with your language choice. Clear this site's data to remove them.
 - The site is hosted on Cloudflare, which keeps standard access logs (IP address, time, requested page) for operation and security.
 
 - 開いたファイルや入力した内容はブラウザ内だけで処理され、サーバーには送信されません。アカウント登録・Cookie・広告・アクセス解析はありません。
 - PDF や画像を開いたときのみ、PDF.js・Tesseract.js と OCR 用の言語データを jsDelivr CDN から読み込みます。jsDelivr には IP アドレスやブラウザ情報が送られますが、ファイルの内容は送られません。
-- オフラインで使えるよう、アプリ本体と OCR 用データをブラウザ内に保存します。サイトデータを削除すると消えます。
+- オフラインで使えるよう、アプリ本体と OCR 用データを、選んだ表示言語とあわせてブラウザ内に保存します。サイトデータを削除すると消えます。
 - サイトは Cloudflare で配信しており、運用・セキュリティのために標準的なアクセスログ（IP アドレス、日時、アクセスしたページ）が記録されます。
 
 The same notice is shown in the app under ⚙ → **Privacy**.
-アプリ内の ⚙ → **Privacy** でも同じ内容を表示しています。
+アプリ内の ⚙ → **プライバシー** でも同じ内容を表示しています。
 
 ## Project structure / 構成
 
@@ -40,7 +42,7 @@ public/
   robots.txt
   sitemap.xml
   chordtransposer/
-    index.html                  # the whole app (HTML / CSS / JS)
+    index.html                  # the whole app (HTML / CSS / JS, English and Japanese text)
     sw.js                       # Service Worker (network first, offline fallback)
     manifest.json               # PWA manifest
     icons/

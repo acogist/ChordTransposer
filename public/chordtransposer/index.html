@@ -17,6 +17,8 @@
   <meta property="og:site_name" content="Chord Transposer" />
   <meta property="og:title" content="Chord Transposer – Transpose chord charts online" />
   <meta property="og:description" content="Transpose chord charts in your browser. Paste text or open TXT, PDF, and image files. Free, no sign-up, works offline." />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ja_JP" />
   <meta property="og:url" content="https://ktkwmr.com/chordtransposer/" />
   <meta property="og:image" content="https://ktkwmr.com/chordtransposer/og-image.png" />
   <meta property="og:image:width" content="1200" />
@@ -31,6 +33,7 @@
     "url": "https://ktkwmr.com/chordtransposer/",
     "description": "Transpose chord charts in your browser. Paste text or open TXT, PDF, and image files.",
     "applicationCategory": "MultimediaApplication",
+    "inLanguage": ["en", "ja"],
     "operatingSystem": "Any",
     "browserRequirements": "Requires a modern web browser",
     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
@@ -597,21 +600,21 @@
         </div>
 
         <div class="group settings">
-          <button class="primary" id="openBtn" type="button"><svg class="ico" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5V15a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V8.5A1.5 1.5 0 0 0 16 7H9.5L8 5H4a1.5 1.5 0 0 0-1.5 1.5z"/></svg><span>Open</span></button>
+          <button class="primary" id="openBtn" type="button"><svg class="ico" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5V15a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V8.5A1.5 1.5 0 0 0 16 7H9.5L8 5H4a1.5 1.5 0 0 0-1.5 1.5z"/></svg><span data-i18n="open">Open</span></button>
           <input id="fileInput" type="file" tabindex="-1" aria-hidden="true" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
           <span class="sep" aria-hidden="true"></span>
-          <label class="ctl">Transpose
-            <select id="semitones" aria-label="Semitones to transpose"></select>
+          <label class="ctl"><span data-i18n="ctl.transpose">Transpose</span>
+            <select id="semitones" aria-label="Semitones to transpose" data-i18n-attr="aria-label:aria.semitones"></select>
           </label>
-          <label class="ctl">Accidental
-            <select id="accidental" aria-label="Sharp or flat preference">
-              <option value="auto">Keep original</option>
-              <option value="sharp">Prefer #</option>
-              <option value="flat">Prefer b</option>
+          <label class="ctl"><span data-i18n="ctl.accidental">Accidental</span>
+            <select id="accidental" aria-label="Sharp or flat preference" data-i18n-attr="aria-label:aria.accidental">
+              <option value="auto" data-i18n="acc.auto">Keep original</option>
+              <option value="sharp" data-i18n="acc.sharp">Prefer #</option>
+              <option value="flat" data-i18n="acc.flat">Prefer b</option>
             </select>
           </label>
-          <label class="ctl">Size
-            <select id="fontSize" aria-label="Text size">
+          <label class="ctl"><span data-i18n="ctl.size">Size</span>
+            <select id="fontSize" aria-label="Text size" data-i18n-attr="aria-label:aria.size">
             <option value="6">6</option>
             <option value="7">7</option>
             <option value="8">8</option>
@@ -630,9 +633,9 @@
         </div>
 
         <div class="group end">
-          <button class="ghost" id="previewBtn" type="button">Preview</button>
-          <button class="ghost" id="saveBtn" type="button">Save</button>
-          <button class="ghost" id="settingsBtn" type="button" aria-label="Settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
+          <button class="ghost" id="previewBtn" type="button" data-i18n="preview">Preview</button>
+          <button class="ghost" id="saveBtn" type="button" data-i18n="save">Save</button>
+          <button class="ghost" id="settingsBtn" type="button" aria-label="Settings" data-i18n-attr="aria-label:settings" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.89 5.11 L10.33 2.55 L13.67 2.55 L14.11 5.11 A7.2 7.2 0 0 1 15.38 5.64 L17.51 4.14 L19.86 6.49 L18.36 8.62 A7.2 7.2 0 0 1 18.89 9.89 L21.45 10.33 L21.45 13.67 L18.89 14.11 A7.2 7.2 0 0 1 18.36 15.38 L19.86 17.51 L17.51 19.86 L15.38 18.36 A7.2 7.2 0 0 1 14.11 18.89 L13.67 21.45 L10.33 21.45 L9.89 18.89 A7.2 7.2 0 0 1 8.62 18.36 L6.49 19.86 L4.14 17.51 L5.64 15.38 A7.2 7.2 0 0 1 5.11 14.11 L2.55 13.67 L2.55 10.33 L5.11 9.89 A7.2 7.2 0 0 1 5.64 8.62 L4.14 6.49 L6.49 4.14 L8.62 5.64 A7.2 7.2 0 0 1 9.89 5.11 Z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
         </div>
@@ -642,16 +645,16 @@
     <main>
       <section class="panel">
         <div class="panel-head">
-          <span>Input</span>
+          <span data-i18n="input">Input</span>
         </div>
-        <textarea id="input" spellcheck="false" wrap="off" placeholder="Open a file or enter chords here"></textarea>
+        <textarea id="input" spellcheck="false" wrap="off" placeholder="Open a file or enter chords here" data-i18n-attr="placeholder:input.placeholder"></textarea>
       </section>
       <section class="panel out">
         <div class="panel-head">
-          <span>Output</span>
+          <span data-i18n="output">Output</span>
           <span class="hint" id="summary">0 found</span>
         </div>
-        <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="Result appears here"></textarea>
+        <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="Result appears here" data-i18n-attr="placeholder:output.placeholder"></textarea>
       </section>
     </main>
 
@@ -661,14 +664,14 @@
     <h2 id="msgTitle">Error</h2>
     <p id="msgBody"></p>
     <div class="dlg-actions">
-      <button class="primary" id="msgOk" type="button">OK</button>
+      <button class="primary" id="msgOk" type="button" data-i18n="ok">OK</button>
     </div>
   </dialog>
 
   <dialog class="msg help" id="helpDlg" aria-labelledby="helpTitle">
-    <h2 id="helpTitle">How to use</h2>
+    <h2 id="helpTitle" data-i18n="menu.help">How to use</h2>
     <div class="help-body">
-      <ol class="help-list">
+      <ol class="help-list" data-i18n-html="help.body">
         <li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>
         <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>
         <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>
@@ -679,47 +682,48 @@
       </ol>
     </div>
     <div class="dlg-actions">
-      <button class="primary" id="helpClose" type="button">Close</button>
+      <button class="primary" id="helpClose" type="button" data-i18n="close">Close</button>
     </div>
   </dialog>
 
   <dialog class="msg help" id="privacyDlg" aria-labelledby="privacyTitle">
-    <h2 id="privacyTitle">Privacy</h2>
+    <h2 id="privacyTitle" data-i18n="menu.privacy">Privacy</h2>
     <div class="help-body">
-      <ul class="help-list">
+      <ul class="help-list" data-i18n-html="privacy.body">
         <li><b>Your files stay on your device</b> – Chord charts you open or type are processed only in your browser. They are never uploaded to a server. This app has no accounts, cookies, ads, or analytics.</li>
         <li><b>Libraries from a CDN</b> – When you open a PDF or an image, the PDF.js and Tesseract.js libraries and OCR language data are downloaded from jsDelivr (cdn.jsdelivr.net). As with any website, jsDelivr receives your IP address and browser information. Your file is not sent.</li>
-        <li><b>Data saved in your browser</b> – To work offline, the app and the OCR language data are saved in your browser's storage. You can delete them by clearing this site's data in your browser settings.</li>
+        <li><b>Data saved in your browser</b> – To work offline, the app and the OCR language data are saved in your browser's storage, along with your language choice. You can delete them by clearing this site's data in your browser settings.</li>
         <li><b>Server logs</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security.</li>
         <li><b>Contact</b> – Questions and feedback: <a href="https://github.com/acogist/ChordTransposer/issues" target="_blank" rel="noopener">GitHub Issues</a>.</li>
       </ul>
     </div>
     <div class="dlg-actions">
-      <button class="primary" id="privacyClose" type="button">Close</button>
+      <button class="primary" id="privacyClose" type="button" data-i18n="close">Close</button>
     </div>
   </dialog>
 
-  <div class="menu" id="settingsMenu" role="menu" aria-label="Settings" hidden>
-    <button type="button" role="menuitem" id="menuHelp">How to use</button>
-    <button type="button" role="menuitem" id="menuPrivacy">Privacy</button>
-    <button type="button" role="menuitem" id="menuAbout">About</button>
+  <div class="menu" id="settingsMenu" role="menu" aria-label="Settings" data-i18n-attr="aria-label:settings" hidden>
+    <button type="button" role="menuitem" id="menuHelp" data-i18n="menu.help">How to use</button>
+    <button type="button" role="menuitem" id="menuPrivacy" data-i18n="menu.privacy">Privacy</button>
+    <button type="button" role="menuitem" id="menuAbout" data-i18n="menu.about">About</button>
+    <button type="button" role="menuitem" id="menuLang" lang="ja" data-i18n="menu.lang">日本語で表示</button>
   </div>
 
   <dialog class="msg about" id="aboutDlg" aria-labelledby="aboutTitle">
-    <h2 id="aboutTitle">About</h2>
-    <p class="about-license">© 2026 ktkwmr · Licensed under the <a href="https://github.com/acogist/ChordTransposer/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></p>
+    <h2 id="aboutTitle" data-i18n="menu.about">About</h2>
+    <p class="about-license" data-i18n-html="about.license">© 2026 ktkwmr · Licensed under the <a href="https://github.com/acogist/ChordTransposer/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></p>
     <div class="about-body"><pre id="licenseText">Loading…</pre></div>
     <div class="dlg-actions">
-      <button class="primary" id="aboutClose" type="button">Close</button>
+      <button class="primary" id="aboutClose" type="button" data-i18n="close">Close</button>
     </div>
   </dialog>
 
-  <dialog class="preview" id="previewDlg" aria-label="Preview">
+  <dialog class="preview" id="previewDlg" aria-label="Preview" data-i18n-attr="aria-label:preview">
     <div class="pv-bar">
-      <span>Preview</span>
-      <button class="ghost" id="previewClose" type="button">Close</button>
+      <span data-i18n="preview">Preview</span>
+      <button class="ghost" id="previewClose" type="button" data-i18n="close">Close</button>
     </div>
-    <iframe id="previewFrame" title="Preview"></iframe>
+    <iframe id="previewFrame" title="Preview" data-i18n-attr="title:preview"></iframe>
   </dialog>
 
   <dialog class="loading" id="loadDlg">
@@ -729,6 +733,158 @@
 
   <script>
     (function () {
+      // ---------- 日英切り替え ----------
+      // 文言は data-i18n（textContent）/ data-i18n-html（innerHTML、下の固定文言のみ）/ data-i18n-attr（属性）で指定する
+      const I18N = {
+        en: {
+          "open": "Open",
+          "ctl.transpose": "Transpose",
+          "ctl.accidental": "Accidental",
+          "ctl.size": "Size",
+          "acc.auto": "Keep original",
+          "acc.sharp": "Prefer #",
+          "acc.flat": "Prefer b",
+          "aria.semitones": "Semitones to transpose",
+          "aria.accidental": "Sharp or flat preference",
+          "aria.size": "Text size",
+          "preview": "Preview",
+          "save": "Save",
+          "settings": "Settings",
+          "input": "Input",
+          "output": "Output",
+          "input.placeholder": "Open a file or enter chords here",
+          "output.placeholder": "Result appears here",
+          "summary": "{d} found, {c} changed",
+          "ok": "OK",
+          "close": "Close",
+          "menu.help": "How to use",
+          "menu.privacy": "Privacy",
+          "menu.about": "About",
+          "menu.lang": "日本語で表示",
+          "help.body": "<li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>\n        <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>\n        <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>\n        <li><b>Accidental</b> – Switch between # and b.</li>\n        <li><b>Size</b> – Change the text size.</li>\n        <li><b>Preview</b> – See the whole result at once.</li>\n        <li><b>Save</b> – Save the result.</li>",
+          "privacy.body": "<li><b>Your files stay on your device</b> – Chord charts you open or type are processed only in your browser. They are never uploaded to a server. This app has no accounts, cookies, ads, or analytics.</li>\n        <li><b>Libraries from a CDN</b> – When you open a PDF or an image, the PDF.js and Tesseract.js libraries and OCR language data are downloaded from jsDelivr (cdn.jsdelivr.net). As with any website, jsDelivr receives your IP address and browser information. Your file is not sent.</li>\n        <li><b>Data saved in your browser</b> – To work offline, the app and the OCR language data are saved in your browser's storage, along with your language choice. You can delete them by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security.</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/acogist/ChordTransposer/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>",
+          "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/acogist/ChordTransposer/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a>",
+          "working": "Working…",
+          "loading": "Loading…",
+          "load.readImage": "Reading image…",
+          "load.ocrSetup": "OCR setup ({status})",
+          "load.readPdf": "Reading PDF…",
+          "load.readPdfPage": "Reading PDF page {i}/{n}",
+          "load.ocrPdfPage": "OCR on PDF page {i}/{n}",
+          "load.loadImage": "Loading image…",
+          "err.ocrLib": "Failed to load OCR library.",
+          "err.pdfLib": "Failed to load PDF library.",
+          "err.image": "Could not display image.",
+          "err.emptyTitle": "Nothing to preview",
+          "err.emptyBody": "Output is empty. Enter a chord chart first.",
+          "err.popupTitle": "Can't open preview",
+          "err.popupBody": "Pop-up blocked. Please allow pop-ups for this page.",
+          "err.unsupportedTitle": "Unsupported file",
+          "err.unsupportedBody": "Choose a text, image, or PDF file.\nSelected file: {name}",
+          "err.notChartTitle": "Not recognized as a chord chart",
+          "err.notChartBody": "This doesn't look like a chord chart. Choose a file with chords and lyrics.",
+          "err.load": "Failed to load",
+          "err.save": "Failed to save",
+          "err.license": "Could not load the license information.\nPlease check your connection and try again.",
+          "none": "(none)",
+          "textFile": "Text file"
+        },
+        ja: {
+          "open": "開く",
+          "ctl.transpose": "転調",
+          "ctl.accidental": "表記",
+          "ctl.size": "文字サイズ",
+          "acc.auto": "元のまま",
+          "acc.sharp": "# を優先",
+          "acc.flat": "b を優先",
+          "aria.semitones": "転調する半音数",
+          "aria.accidental": "# と b の表記",
+          "aria.size": "文字サイズ",
+          "preview": "プレビュー",
+          "save": "保存",
+          "settings": "設定",
+          "input": "入力",
+          "output": "出力",
+          "input.placeholder": "ファイルを開くか、ここにコード譜を入力",
+          "output.placeholder": "ここに結果が表示されます",
+          "summary": "{d} 個検出・{c} 個変換",
+          "ok": "OK",
+          "close": "閉じる",
+          "menu.help": "使い方",
+          "menu.privacy": "プライバシー",
+          "menu.about": "このアプリについて",
+          "menu.lang": "Show in English",
+          "help.body": "<li><b>ファイルを開く</b> – 「開く」をタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>\n<li><b>コードを入力する</b> – 入力欄にコード譜を貼り付けるか、直接入力します。編集すると出力がすぐに更新されます。</li>\n<li><b>転調</b> – 転調する幅を選ぶと、出力のコードが変換されます。</li>\n<li><b>表記</b> – # と b の表記を切り替えます。</li>\n<li><b>文字サイズ</b> – 文字の大きさを変えます。</li>\n<li><b>プレビュー</b> – 結果全体をまとめて表示します。</li>\n<li><b>保存</b> – 結果を保存します。</li>",
+          "privacy.body": "<li><b>ファイルは端末の外に出ません</b> – 開いたコード譜や入力した内容は、ブラウザ内だけで処理されます。サーバーに送信されることはありません。アカウント登録・Cookie・広告・アクセス解析もありません。</li>\n<li><b>CDN から読み込むライブラリ</b> – PDF や画像を開いたときだけ、PDF.js・Tesseract.js と OCR 用の言語データを jsDelivr（cdn.jsdelivr.net）から読み込みます。一般的な Web サイトと同様に、jsDelivr には IP アドレスやブラウザの情報が送られますが、ファイルの内容は送られません。</li>\n<li><b>ブラウザに保存するデータ</b> – オフラインで使えるよう、アプリ本体と OCR 用の言語データを、選んだ表示言語とあわせてブラウザ内に保存します。ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n<li><b>サーバーのログ</b> – このサイトは Cloudflare で配信しています。運用とセキュリティのため、標準的なアクセスログ（IP アドレス、日時、アクセスしたページなど）が記録されます。</li>\n<li><b>お問い合わせ</b> – ご質問やご意見は <a href=\"https://github.com/acogist/ChordTransposer/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a> へどうぞ。</li>",
+          "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/acogist/ChordTransposer/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a>で公開しています",
+          "working": "処理中…",
+          "loading": "読み込み中…",
+          "load.readImage": "画像を読み取り中…",
+          "load.ocrSetup": "文字認識の準備中（{status}）",
+          "load.readPdf": "PDF を読み込み中…",
+          "load.readPdfPage": "PDF を読み込み中（{i}/{n} ページ）",
+          "load.ocrPdfPage": "PDF を文字認識中（{i}/{n} ページ）",
+          "load.loadImage": "画像を読み込み中…",
+          "err.ocrLib": "文字認識ライブラリを読み込めませんでした。",
+          "err.pdfLib": "PDF ライブラリを読み込めませんでした。",
+          "err.image": "画像を表示できませんでした。",
+          "err.emptyTitle": "プレビューする内容がありません",
+          "err.emptyBody": "出力が空です。先にコード譜を入力してください。",
+          "err.popupTitle": "プレビューを開けません",
+          "err.popupBody": "ポップアップがブロックされました。このページのポップアップを許可してください。",
+          "err.unsupportedTitle": "対応していないファイルです",
+          "err.unsupportedBody": "テキスト・画像・PDF ファイルを選んでください。\n選択したファイル: {name}",
+          "err.notChartTitle": "コード譜として認識できません",
+          "err.notChartBody": "コード譜ではないようです。コードと歌詞を含むファイルを選んでください。",
+          "err.load": "読み込みに失敗しました",
+          "err.save": "保存に失敗しました",
+          "err.license": "ライセンス情報を読み込めませんでした。\n接続を確認して、もう一度お試しください。",
+          "none": "（なし）",
+          "textFile": "テキストファイル"
+        }
+      };
+      const LANG_KEY = "chord-transposer-lang";
+
+      // 優先順位: URL の ?lang=ja|en → 前回選んだ言語 → ブラウザの第一言語（日本語以外は英語）
+      function detectLang() {
+        const q = new URLSearchParams(location.search).get("lang");
+        if (q === "ja" || q === "en") return q;
+        try {
+          const saved = localStorage.getItem(LANG_KEY);
+          if (saved === "ja" || saved === "en") return saved;
+        } catch (e) {}
+        const first = (navigator.languages && navigator.languages[0]) || navigator.language || "";
+        return /^ja\b/i.test(first) ? "ja" : "en";
+      }
+      let lang = detectLang();
+
+      function t(key, vars) {
+        let str = I18N[lang][key];
+        if (str === undefined) str = I18N.en[key] !== undefined ? I18N.en[key] : key;
+        if (vars) str = str.replace(/\{(\w+)\}/g, function (m, k) { return k in vars ? String(vars[k]) : m; });
+        return str;
+      }
+
+      function applyI18n() {
+        document.documentElement.lang = lang;
+        document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = t(el.dataset.i18n); });
+        document.querySelectorAll("[data-i18n-html]").forEach(function (el) { el.innerHTML = t(el.dataset.i18nHtml); });
+        document.querySelectorAll("[data-i18n-attr]").forEach(function (el) {
+          el.dataset.i18nAttr.split(";").forEach(function (pair) {
+            const parts = pair.split(":");
+            el.setAttribute(parts[0], t(parts[1]));
+          });
+        });
+        // 切り替えボタンは切り替え先の言語で表示している
+        document.getElementById("menuLang").lang = lang === "ja" ? "en" : "ja";
+      }
+
+      function setLang(next) {
+        lang = next;
+        try { localStorage.setItem(LANG_KEY, next); } catch (e) {}
+        applyI18n();
+        render();
+      }
       const SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
       const FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
       const NOTE_INDEX = {
@@ -833,7 +989,7 @@
       }
 
       function setLoading(on, label, ratio) {
-        document.getElementById("loadLabel").textContent = label || "Working…";
+        document.getElementById("loadLabel").textContent = label || t("working");
         document.getElementById("loadBar").style.width = Math.round((ratio || 0) * 100) + "%";
         if (on) {
           if (!loadDlg.open && typeof loadDlg.showModal === "function") loadDlg.showModal();
@@ -1104,7 +1260,7 @@
           s.async = true;
           s.dataset.ocr = "tesseract";
           s.onload = () => resolve();
-          s.onerror = () => reject(new Error("Failed to load OCR library."));
+          s.onerror = () => reject(new Error(t("err.ocrLib")));
           document.head.appendChild(s);
         });
       }
@@ -1115,9 +1271,9 @@
           ocrWorker = await window.Tesseract.createWorker("jpn+eng", 1, {
             logger: function (m) {
               if (m.status === "recognizing text" && typeof m.progress === "number") {
-                setLoading(true, "Reading image…", 0.15 + m.progress * 0.8);
+                setLoading(true, t("load.readImage"), 0.15 + m.progress * 0.8);
               } else if (m.status) {
-                setLoading(true, "OCR setup (" + m.status + ")", 0.12);
+                setLoading(true, t("load.ocrSetup", { status: m.status }), 0.12);
               }
             }
           });
@@ -1142,7 +1298,7 @@
           s.async = true;
           s.dataset.lib = "pdfjs";
           s.onload = () => resolve();
-          s.onerror = () => reject(new Error("Failed to load PDF library."));
+          s.onerror = () => reject(new Error(t("err.pdfLib")));
           document.head.appendChild(s);
         });
       }
@@ -1211,7 +1367,7 @@
       }
 
       async function extractChartFromPdf(file) {
-        setLoading(true, "Reading PDF…", 0.05);
+        setLoading(true, t("load.readPdf"), 0.05);
         try {
           await loadPdfJs();
           window.pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -1223,7 +1379,7 @@
           // 1st pass: pull the embedded text layer from every page
           const pages = [];
           for (let i = 1; i <= pageCount; i++) {
-            setLoading(true, "Reading PDF page " + i + "/" + pageCount, 0.05 + ((i - 1) / pageCount) * 0.35);
+            setLoading(true, t("load.readPdfPage", { i: i, n: pageCount }), 0.05 + ((i - 1) / pageCount) * 0.35);
             const page = await pdf.getPage(i);
             const tc = await page.getTextContent();
             const text = buildLinesFromTextContent(tc.items);
@@ -1239,7 +1395,7 @@
               results.push(pages[i].text);
               continue;
             }
-            setLoading(true, "OCR on PDF page " + (i + 1) + "/" + pageCount, 0.4 + (i / pageCount) * 0.5);
+            setLoading(true, t("load.ocrPdfPage", { i: i + 1, n: pageCount }), 0.4 + (i / pageCount) * 0.5);
             results.push(await ocrPdfPage(pages[i].page));
           }
 
@@ -1254,17 +1410,17 @@
       }
 
       async function extractChartFromImage(file) {
-        setLoading(true, "Loading image…", 0.05);
+        setLoading(true, t("load.loadImage"), 0.05);
         const url = URL.createObjectURL(file);
         try {
           const img = await new Promise((resolve, reject) => {
             const el = new Image();
             el.onload = () => resolve(el);
-            el.onerror = () => reject(new Error("Could not display image.")); 
+            el.onerror = () => reject(new Error(t("err.image"))); 
             el.src = url;
           });
           const worker = await ensureOcrWorker();
-          setLoading(true, "Reading image…", 0.2);
+          setLoading(true, t("load.readImage"), 0.2);
           const result = await worker.recognize(img);
           const text = ensureBlankLineBeforeChords(restoreOcrBars(mergeWrappedOcrLines(result.data.lines || [], img.naturalWidth || img.width || 1)));
           if (!looksLikeChordChart(text)) {
@@ -1283,7 +1439,7 @@
         const source = inputEl.value;
         const result = transposeText(source, semitones, mode);
         outputEl.value = result.text;
-        summaryEl.textContent = result.detected + " found, " + result.changed + " changed";
+        summaryEl.textContent = t("summary", { d: result.detected, c: result.changed });
       }
 
       function applyFontSize() {
@@ -1293,9 +1449,9 @@
       function buildPreviewHtml(text) {
         const html = [
           "<!DOCTYPE html>",
-          "<html lang=\"ja\"><head><meta charset=\"UTF-8\" />",
+          "<html lang=\"ja\"><head><meta charset=\"UTF-8\" />",  // 歌詞の和文グリフを優先するため ja 固定
           "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />",
-          "<title>Preview</title>",
+          "<title>" + t("preview") + "</title>",
           "<style>",
           "*,*:before,*:after{box-sizing:border-box;}",
           "html,body{margin:0;height:100%;background:#fff;-webkit-text-size-adjust:100%;text-size-adjust:100%;}",
@@ -1384,7 +1540,7 @@
       function openPreview() {
         const text = outputEl.value;
         if (!text.trim()) {
-          showError("Nothing to preview", "Output is empty. Enter a chord chart first.");
+          showError(t("err.emptyTitle"), t("err.emptyBody"));
           return;
         }
         const html = buildPreviewHtml(text);
@@ -1404,7 +1560,7 @@
           previewWin = window.open("", "chordPreview", features);
         }
         if (!previewWin) {
-          showError("Can't open preview", "Pop-up blocked. Please allow pop-ups for this page.");
+          showError(t("err.popupTitle"), t("err.popupBody"));
           return;
         }
         previewWin.document.open();
@@ -1436,19 +1592,13 @@
             render();
             return;
           }
-          showError(
-            "Unsupported file",
-            "Choose a text, image, or PDF file.\nSelected file: " + (file.name || "(none)")
-          );
+          showError(t("err.unsupportedTitle"), t("err.unsupportedBody", { name: file.name || t("none") }));
         } catch (err) {
           if (err && err.code === "not-chart") {
-            showError(
-              "Not recognized as a chord chart",
-              "This doesn't look like a chord chart. Choose a file with chords and lyrics."
-            );
+            showError(t("err.notChartTitle"), t("err.notChartBody"));
             return;
           }
-          showError("Failed to load", err && err.message ? err.message : String(err));
+          showError(t("err.load"), err && err.message ? err.message : String(err));
         }
       }
 
@@ -1501,7 +1651,7 @@
           try {
             const opts = {
               suggestedName: suggested,
-              types: [{ description: "Text file", accept: { "text/plain": [".txt"] } }]
+              types: [{ description: t("textFile"), accept: { "text/plain": [".txt"] } }]
             };
             if (sourceFileHandle) opts.startIn = sourceFileHandle;
             const handle = await window.showSaveFilePicker(opts);
@@ -1510,7 +1660,7 @@
             await writable.close();
           } catch (err) {
             if (err && err.name === "AbortError") return;
-            showError("Failed to save", err && err.message ? err.message : String(err));
+            showError(t("err.save"), err && err.message ? err.message : String(err));
           }
           return;
         }
@@ -1532,7 +1682,7 @@
         try {
           downloadText(suggested, outputEl.value);
         } catch (err) {
-          showError("Failed to save", err && err.message ? err.message : String(err));
+          showError(t("err.save"), err && err.message ? err.message : String(err));
         }
       }
 
@@ -1658,6 +1808,7 @@
       async function loadLicenses() {
         if (licenseLoaded) return;
         const el = document.getElementById("licenseText");
+        el.textContent = t("loading");
         try {
           const res = await fetch("THIRD_PARTY_LICENSES.md");
           if (!res.ok) throw new Error("HTTP " + res.status);
@@ -1665,7 +1816,7 @@
           el.textContent = (await res.text()).replace(/<!--[\s\S]*?-->\n?/g, "");
           licenseLoaded = true;
         } catch (e) {
-          el.textContent = "Could not load the license information.\nPlease check your connection and try again.";
+          el.textContent = t("err.license");
         }
       }
 
@@ -1676,6 +1827,10 @@
       document.getElementById("menuPrivacy").addEventListener("click", function () {
         closeMenu(false);
         if (typeof privacyDlg.showModal === "function") privacyDlg.showModal();
+      });
+      document.getElementById("menuLang").addEventListener("click", function () {
+        closeMenu(false);
+        setLang(lang === "ja" ? "en" : "ja");
       });
       document.getElementById("menuAbout").addEventListener("click", function () {
         closeMenu(false);
@@ -1693,6 +1848,7 @@
         });
       });
 
+      applyI18n();
       applyFontSize();
       render();
     })();

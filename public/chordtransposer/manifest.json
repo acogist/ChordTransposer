@@ -1,7 +1,7 @@
 {
   "name": "Chord Transposer",
   "short_name": "Chord Transposer",
-  "description": "コード進行を転調するWebアプリ",
+  "description": "Transpose chord charts in your browser. コード譜を転調するWebアプリ",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

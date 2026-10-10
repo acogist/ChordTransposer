@@ -486,7 +486,7 @@
       .app { position: fixed; inset: 0; height: auto; }   /* 実際の表示領域に合わせる */
     }
 
-    /* ---------- Tablet portrait / narrow window: stack the panes ---------- */
+    /* ---------- Tablet portrait / narrow window: 上部を2段にする（入力・出力はタブ。下の Phone portrait / tablet portrait を参照） ---------- */
     @media (max-width: 900px) {
       :root { --pad-x: 14px; }
     }
@@ -498,10 +498,6 @@
       .group.end { grid-area: 1 / 2; justify-self: end; margin-left: 0; }
       .group.settings { grid-area: 2 / 1 / 3 / 3; }
       .sep { display: none; }
-      main {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(2, minmax(0, 1fr));
-      }
     }
 
     /* ---------- Phone landscape: keep panes side by side, compact chrome ---------- */
@@ -518,9 +514,74 @@
       textarea { padding-top: 10px; padding-bottom: 10px; }
     }
 
-    /* ---------- Phone portrait ----------
-       上: タイトルと設定 / 中: 入力・出力（タブで切り替え）。
+    /* ---------- Phone portrait / tablet portrait: 入力・出力をタブで切り替え ----------
        プレビュー / 保存は出力タブの下（親指が届く位置）にだけ表示し、入力タブでは入力欄を下端まで広げる */
+    @media (max-width: 600px), (max-width: 900px) and (min-height: 521px) {
+      main {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px var(--pr) calc(10px + max(var(--pb), 8px)) var(--pl);   /* 角丸・ホームバーに掛からないよう余白を確保 */
+        border-top: 1px solid var(--line);
+      }
+      .tabs {
+        flex: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        padding: 4px;
+        border-radius: 10px;
+        background: var(--line);
+      }
+      .tab {
+        height: 36px;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      .app[data-view="in"] .tab[data-view="in"],
+      .app[data-view="out"] .tab[data-view="out"] {
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      }
+      /* テキスト欄そのものをカードにし、出力ではその下にボタンを置く */
+      .panel {
+        flex: 1 1 0;
+        gap: 10px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        overflow: visible;
+      }
+      .panel textarea {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: border-color 0.15s;
+      }
+      .panel textarea:focus { border-color: var(--ink); }
+      .panel-head { display: none; }
+      .panel.out .panel-head {
+        order: 1;
+        display: block;
+        height: auto;
+        padding: 0;
+        border: 0;
+      }
+      .panel.out .panel-head > span { display: none; }
+      .out-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 6px; }
+      .out-actions button { height: 44px; padding: 0 4px; overflow: hidden; text-overflow: ellipsis; }
+      .app[data-view="in"] .panel.out,
+      .app[data-view="out"] .panel:not(.out) { display: none; }
+    }
+
+    /* ---------- Phone portrait ----------
+       上: タイトルと設定 / 中: 入力・出力（タブで切り替え） */
     @media (max-width: 600px) {
       :root { --pad-x: 14px; }
 
@@ -560,66 +621,7 @@
       main {
         grid-column: 1 / -1;
         grid-row: 3;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 10px var(--pr) calc(10px + max(var(--pb), 8px)) var(--pl);   /* 角丸・ホームバーに掛からないよう余白を確保 */
-        border-top: 1px solid var(--line);
       }
-      .tabs {
-        flex: none;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 4px;
-        padding: 4px;
-        border-radius: 10px;
-        background: var(--line);
-      }
-      .tab {
-        height: 36px;
-        border: 0;
-        border-radius: 7px;
-        background: transparent;
-        color: var(--muted);
-        font-size: 14px;
-      }
-      .app[data-view="in"] .tab[data-view="in"],
-      .app[data-view="out"] .tab[data-view="out"] {
-        background: var(--paper);
-        color: var(--ink);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-      }
-      /* スマホではテキスト欄そのものをカードにし、その下にボタンを置く */
-      .panel {
-        flex: 1 1 0;
-        gap: 10px;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        overflow: visible;
-      }
-      .panel textarea {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: var(--paper);
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
-        transition: border-color 0.15s;
-      }
-      .panel textarea:focus { border-color: var(--ink); }
-      .panel-head { display: none; }
-      .panel.out .panel-head {
-        order: 1;
-        display: block;
-        height: auto;
-        padding: 0;
-        border: 0;
-      }
-      .panel.out .panel-head > span { display: none; }
-      .out-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 6px; }
-      .out-actions button { height: 44px; padding: 0 4px; overflow: hidden; text-overflow: ellipsis; }
-      .app[data-view="in"] .panel.out,
-      .app[data-view="out"] .panel:not(.out) { display: none; }
 
       /* Open は左上（移調の左） */
       #openBtn { flex: none; width: 44px; height: 44px; }
@@ -965,7 +967,8 @@
       const previewDlg = document.getElementById("previewDlg");
       const previewFrame = document.getElementById("previewFrame");
       const appEl = document.querySelector(".app");
-      const phoneMq = window.matchMedia("(max-width: 600px)");
+      // タブ表示（スマホ縦・タブレット縦）。CSS の @media と同じ条件
+      const tabMq = window.matchMedia("(max-width: 600px), (max-width: 900px) and (min-height: 521px)");
 
       // スマホでは accept を外し、端末内のあらゆるファイルを選べるようにする（種類は読み込み時に判定）
       if (window.matchMedia("(pointer: coarse)").matches) fileInput.removeAttribute("accept");
@@ -1755,7 +1758,7 @@
 
       function onTransposeSettingChange() {
         render();
-        if (phoneMq.matches) setView("out");
+        if (tabMq.matches) setView("out");
       }
 
       inputEl.addEventListener("input", render);

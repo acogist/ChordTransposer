@@ -606,9 +606,9 @@
           <label class="ctl"><span data-i18n="ctl.transpose">Transpose</span>
             <select id="semitones" aria-label="Semitones to transpose" data-i18n-attr="aria-label:aria.semitones"></select>
           </label>
-          <label class="ctl"><span data-i18n="ctl.accidental">Accidental</span>
+          <label class="ctl"><span data-i18n="ctl.accidental">#/♭</span>
             <select id="accidental" aria-label="Sharp or flat preference" data-i18n-attr="aria-label:aria.accidental">
-              <option value="auto" data-i18n="acc.auto">Keep original</option>
+              <option value="auto" data-i18n="acc.auto">Original</option>
               <option value="sharp" data-i18n="acc.sharp">Prefer #</option>
               <option value="flat" data-i18n="acc.flat">Prefer b</option>
             </select>
@@ -675,7 +675,7 @@
         <li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>
         <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>
         <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>
-        <li><b>Accidental</b> – Switch between # and b.</li>
+        <li><b>#/♭</b> – Switch between # and b.</li>
         <li><b>Size</b> – Change the text size.</li>
         <li><b>Preview</b> – See the whole result at once.</li>
         <li><b>Save</b> – Save the result.</li>
@@ -739,9 +739,9 @@
         en: {
           "open": "Open",
           "ctl.transpose": "Transpose",
-          "ctl.accidental": "Accidental",
+          "ctl.accidental": "#/♭",
           "ctl.size": "Size",
-          "acc.auto": "Keep original",
+          "acc.auto": "Original",
           "acc.sharp": "Prefer #",
           "acc.flat": "Prefer b",
           "aria.semitones": "Semitones to transpose",
@@ -761,7 +761,7 @@
           "menu.privacy": "Privacy",
           "menu.about": "About",
           "menu.lang": "日本語で表示",
-          "help.body": "<li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>\n        <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>\n        <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>\n        <li><b>Accidental</b> – Switch between # and b.</li>\n        <li><b>Size</b> – Change the text size.</li>\n        <li><b>Preview</b> – See the whole result at once.</li>\n        <li><b>Save</b> – Save the result.</li>",
+          "help.body": "<li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>\n        <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>\n        <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>\n        <li><b>#/♭</b> – Switch between # and b.</li>\n        <li><b>Size</b> – Change the text size.</li>\n        <li><b>Preview</b> – See the whole result at once.</li>\n        <li><b>Save</b> – Save the result.</li>",
           "privacy.body": "<li><b>Your files stay on your device</b> – Chord charts you open or type are processed only in your browser. They are never uploaded to a server. This app has no accounts, cookies, ads, or analytics.</li>\n        <li><b>Libraries from a CDN</b> – When you open a PDF or an image, the PDF.js and Tesseract.js libraries and OCR language data are downloaded from jsDelivr (cdn.jsdelivr.net). As with any website, jsDelivr receives your IP address and browser information. Your file is not sent.</li>\n        <li><b>Data saved in your browser</b> – To work offline, the app and the OCR language data are saved in your browser's storage, along with your language choice. You can delete them by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security.</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/acogist/ChordTransposer/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>",
           "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/acogist/ChordTransposer/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a>",
           "working": "Working…",
@@ -792,9 +792,9 @@
         ja: {
           "open": "開く",
           "ctl.transpose": "転調",
-          "ctl.accidental": "表記",
+          "ctl.accidental": "#/♭",
           "ctl.size": "文字サイズ",
-          "acc.auto": "元のまま",
+          "acc.auto": "オリジナル",
           "acc.sharp": "# を優先",
           "acc.flat": "b を優先",
           "aria.semitones": "転調する半音数",
@@ -814,7 +814,7 @@
           "menu.privacy": "プライバシー",
           "menu.about": "このアプリについて",
           "menu.lang": "Show in English",
-          "help.body": "<li><b>ファイルを開く</b> – 「開く」をタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>\n<li><b>コードを入力する</b> – 入力欄にコード譜を貼り付けるか、直接入力します。編集すると出力がすぐに更新されます。</li>\n<li><b>転調</b> – 転調する幅を選ぶと、出力のコードが変換されます。</li>\n<li><b>表記</b> – # と b の表記を切り替えます。</li>\n<li><b>文字サイズ</b> – 文字の大きさを変えます。</li>\n<li><b>プレビュー</b> – 結果全体をまとめて表示します。</li>\n<li><b>保存</b> – 結果を保存します。</li>",
+          "help.body": "<li><b>ファイルを開く</b> – 「開く」をタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>\n<li><b>コードを入力する</b> – 入力欄にコード譜を貼り付けるか、直接入力します。編集すると出力がすぐに更新されます。</li>\n<li><b>転調</b> – 転調する幅を選ぶと、出力のコードが変換されます。</li>\n<li><b>#/♭</b> – # と b の表記を切り替えます。</li>\n<li><b>文字サイズ</b> – 文字の大きさを変えます。</li>\n<li><b>プレビュー</b> – 結果全体をまとめて表示します。</li>\n<li><b>保存</b> – 結果を保存します。</li>",
           "privacy.body": "<li><b>ファイルは端末の外に出ません</b> – 開いたコード譜や入力した内容は、ブラウザ内だけで処理されます。サーバーに送信されることはありません。アカウント登録・Cookie・広告・アクセス解析もありません。</li>\n<li><b>CDN から読み込むライブラリ</b> – PDF や画像を開いたときだけ、PDF.js・Tesseract.js と OCR 用の言語データを jsDelivr（cdn.jsdelivr.net）から読み込みます。一般的な Web サイトと同様に、jsDelivr には IP アドレスやブラウザの情報が送られますが、ファイルの内容は送られません。</li>\n<li><b>ブラウザに保存するデータ</b> – オフラインで使えるよう、アプリ本体と OCR 用の言語データを、選んだ表示言語とあわせてブラウザ内に保存します。ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n<li><b>サーバーのログ</b> – このサイトは Cloudflare で配信しています。運用とセキュリティのため、標準的なアクセスログ（IP アドレス、日時、アクセスしたページなど）が記録されます。</li>\n<li><b>お問い合わせ</b> – ご質問やご意見は <a href=\"https://github.com/acogist/ChordTransposer/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a> へどうぞ。</li>",
           "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/acogist/ChordTransposer/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a>で公開しています",
           "working": "処理中…",

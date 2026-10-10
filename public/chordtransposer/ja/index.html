@@ -55,6 +55,7 @@
       --line: #e5e5e5;
       --line-strong: #d4d4d4;
       --hover-fill: #f5f5f5;
+      --canvas: #f5f5f5;
       --out-bg: #fff;
       --out-ink: #000;
       --out-muted: #525252;
@@ -138,15 +139,45 @@
       gap: 8px;
     }
 
+    /* 移調・#/♭・文字サイズ: アイコン（または短いラベル）と選択中の値を表示し、
+       透明にした select を全体に重ねてタップを受ける */
     label.ctl {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      height: var(--ctl-h);
+      padding: 0 28px 0 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 10px center;
       font-size: 13px;
       font-weight: 500;
       color: var(--muted);
       white-space: nowrap;
+      cursor: pointer;
+      transition: border-color 0.12s;
     }
+    label.key { width: 96px; }
+    label.acc { width: 80px; }
+    label.size { width: 88px; }
+    .ctl-ico { display: block; flex: none; width: 20px; height: 20px; color: var(--ink); }
+    label.key .ctl-txt, label.size .ctl-txt { display: none; }
+    label.ctl .val {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    label.ctl select {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+    label.ctl:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+    label.ctl select:focus-visible { outline: 0; }
 
     select, button {
       font-family: inherit;
@@ -165,12 +196,6 @@
       background: var(--paper) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 12px center;
       color: var(--ink);
       cursor: pointer;
-    }
-
-    #semitones {
-      min-width: 108px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
     }
 
     button {
@@ -195,7 +220,7 @@
 
     /* ホバーがある環境だけ（タッチ端末でホバー状態が残らないように） */
     @media (hover: hover) {
-      select:hover { border-color: var(--ink); }
+      label.ctl:hover { border-color: var(--ink); }
       .primary:hover { background: #262626; }
       .ghost:hover { border-color: var(--ink); background: var(--hover-fill); }
     }
@@ -205,8 +230,9 @@
       outline-offset: 2px;
     }
 
-    #openBtn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
-    #openBtn .ico { flex: none; }
+    /* 開く: フォルダアイコンのみ（名前は aria-label） */
+    #openBtn { display: inline-flex; align-items: center; justify-content: center; width: 44px; padding: 0; }
+    #openBtn .ico { flex: none; width: 22px; height: 22px; }
     .sep { flex: none; width: 1px; height: 24px; background: var(--line); }
 
     #settingsBtn { width: var(--ctl-h); padding: 0; border-radius: 50%; border-color: transparent; display: inline-flex; align-items: center; justify-content: center; }
@@ -250,8 +276,12 @@
     main {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 16px;
       min-height: 0;
+      padding: 16px var(--pr) calc(16px + var(--pb)) var(--pl);
+      background: var(--canvas);
     }
+    .tabs { display: none; }
 
     .panel {
       --focus: var(--ink);
@@ -262,13 +292,17 @@
       background: var(--paper);
       color: var(--ink);
       overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: border-color 0.15s;
     }
+    .panel:focus-within { border-color: var(--ink); }
 
     .panel.out {
       --focus: var(--out-ink);
       background: var(--out-bg);
       color: var(--out-ink);
-      border-left: 1px solid var(--line);
     }
 
     .panel-head {
@@ -278,22 +312,14 @@
       align-items: center;
       gap: 12px;
       height: 40px;
-      padding: 0 var(--pr) 0 var(--pl);
+      padding: 0 16px;
       border-bottom: 1px solid var(--line);
       font-size: 13px;
       font-weight: 700;
       transition: box-shadow 0.15s;
     }
     .panel.out .panel-head { border-bottom-color: var(--out-line); }
-    .panel:focus-within .panel-head { box-shadow: inset 0 -2px 0 var(--focus); }
 
-    .hint {
-      font-weight: 500;
-      color: var(--muted);
-      font-size: 12px;
-      font-variant-numeric: tabular-nums;
-    }
-    .panel.out .hint { color: var(--out-muted); }
 
     textarea {
       flex: 1;
@@ -305,7 +331,7 @@
       -webkit-appearance: none;
       appearance: none;
       resize: none;
-      padding: 16px var(--pr) 16px var(--pl);
+      padding: 14px 16px;
       font-family: var(--mono);
       font-size: var(--editor-size);
       line-height: 1.55;
@@ -454,7 +480,7 @@
     }
     @media (max-width: 900px) and (min-height: 521px) {
       .group + .group { padding-left: 0; border-left: 0; }
-      /* 1段目: タイトル と 右端に「プレビュー / 保存」、2段目: 「ファイルを開く」と設定 */
+      /* 1段目: タイトル と 右端に「プレビュー / 保存」、2段目: 「開く」と設定 */
       .toolbar { display: grid; grid-template-columns: auto minmax(0, 1fr); }
       .brand { grid-area: 1 / 1; }
       .group.end { grid-area: 1 / 2; justify-self: end; margin-left: 0; }
@@ -464,7 +490,6 @@
         grid-template-columns: 1fr;
         grid-template-rows: repeat(2, minmax(0, 1fr));
       }
-      .panel.out { border-left: 0; border-top: 1px solid var(--line); }
     }
 
     /* ---------- Phone landscape: keep panes side by side, compact chrome ---------- */
@@ -475,12 +500,13 @@
       .brand span { display: none; }
       .group + .group { padding-left: 12px; }
       .group { gap: 6px 12px; }
+      main { gap: 10px; padding-top: 10px; padding-bottom: calc(10px + var(--pb)); }
       .panel-head { height: 32px; }
       textarea { padding-top: 10px; padding-bottom: 10px; }
     }
 
     /* ---------- Phone portrait ----------
-       上: タイトルと設定 / 中: 入力・変換後（見出しをタップして切り替え） /
+       上: タイトルと設定 / 中: 入力・出力（タブで切り替え） /
        下: 操作ボタン（親指が届く位置） */
     @media (max-width: 600px) {
       :root { --pad-x: 14px; }
@@ -506,64 +532,57 @@
         grid-column: 1 / -1;
         grid-row: 2;
         display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
+        flex-wrap: nowrap;
+        gap: 5px;
         padding: 10px var(--pr) 10px var(--pl);
         border-left: 0;
       }
-      label.ctl {
-        height: 40px;
-        gap: 4px;
-        padding-left: 12px;
-        border: 1px solid var(--line-strong);
-        border-radius: var(--radius);
-      }
-      label.ctl select {
-        height: 38px;
-        min-width: 0;
-        padding: 0 28px 0 4px;
-        border: 0;
-        border-radius: 0 var(--radius) var(--radius) 0;
-        background-color: transparent;
-      }
-      label.ctl #semitones { min-width: 0; }
-      label.ctl:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
-      label.ctl select:focus-visible { outline: 0; }
+      /* 幅は中身に合わせ、余った分を均等に分ける（320px 幅でも値が切れないように） */
+      label.ctl { flex: 1 1 auto; width: auto; height: 44px; gap: 4px; padding: 0 20px 0 6px; background-position: right 7px center; }
+      label.ctl .ctl-ico { width: 22px; height: 22px; }
+      label.ctl .val { font-size: 16px; }
 
       main {
         grid-column: 1 / -1;
         grid-row: 3;
         display: flex;
         flex-direction: column;
+        gap: 10px;
+        padding: 10px var(--pr) 10px var(--pl);
         border-top: 1px solid var(--line);
         border-bottom: 1px solid var(--line);
       }
-      .panel.out { border-left: 0; border-top: 1px solid var(--line); }
-      .panel { flex: 0 0 auto; }
-      .app[data-view="in"] .panel:not(.out),
-      .app[data-view="out"] .panel.out { flex: 1 1 0; }
-      .app[data-view="in"] .panel.out textarea,
-      .app[data-view="out"] .panel:not(.out) textarea { display: none; }
-
-      .panel-head { height: 44px; cursor: pointer; }
-      .panel-head > span:first-child::after {
-        content: "";
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        margin: 0 0 3px 10px;
-        border-right: 2px solid currentColor;
-        border-bottom: 2px solid currentColor;
-        transform: rotate(45deg);
+      .tabs {
+        flex: none;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        padding: 4px;
+        border-radius: 10px;
+        background: var(--line);
       }
-      .app[data-view="in"] .panel:not(.out) .panel-head > span:first-child::after,
-      .app[data-view="out"] .panel.out .panel-head > span:first-child::after {
-        margin: 3px 0 0 10px;
-        transform: rotate(-135deg);
+      .tab {
+        height: 36px;
+        border: 0;
+        border-radius: 7px;
+        background: transparent;
+        color: var(--muted);
+        font-size: 14px;
       }
+      .app[data-view="in"] .tab[data-view="in"],
+      .app[data-view="out"] .tab[data-view="out"] {
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      }
+      .panel { flex: 1 1 0; }
+      .panel-head { display: none; }
+      .app[data-view="in"] .panel.out,
+      .app[data-view="out"] .panel:not(.out) { display: none; }
 
       /* Open は左上（Transpose の左）。下段は Preview / Save */
-      #openBtn { height: 40px; padding: 0 16px; }
+      #openBtn { flex: none; width: 44px; height: 44px; }
+      #openBtn .ico { width: 24px; height: 24px; }
       #settingsBtn {
         grid-row: 1;
         grid-column: 2;
@@ -605,20 +624,20 @@
         </div>
 
         <div class="group settings">
-          <button class="primary" id="openBtn" type="button"><svg class="ico" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5V15a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V8.5A1.5 1.5 0 0 0 16 7H9.5L8 5H4a1.5 1.5 0 0 0-1.5 1.5z"/></svg><span data-i18n="open">開く</span></button>
+          <button class="primary" id="openBtn" type="button" aria-label="開く" title="開く" data-i18n-attr="aria-label:open;title:open"><svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5V15a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5V8.5A1.5 1.5 0 0 0 16 7H9.5L8 5H4a1.5 1.5 0 0 0-1.5 1.5z"/></svg></button>
           <input id="fileInput" type="file" tabindex="-1" aria-hidden="true" accept="image/*,text/*,application/pdf,.pdf,.txt,.text,.md,.markdown,.csv,.tsv,.json,.xml,.html,.htm,.css,.js,.ts,.log,.lrc,.cho,.crd,.chord,.chp,.tab,.ascii,.ini,.yaml,.yml,.toml,.lt,.chopro,.pro,.enc" />
           <span class="sep" aria-hidden="true"></span>
-          <label class="ctl"><span data-i18n="ctl.transpose">転調</span>
-            <select id="semitones" aria-label="転調する半音数" data-i18n-attr="aria-label:aria.semitones"></select>
+          <label class="ctl key"><svg class="ctl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5v7M3.5 6L6 3.5 8.5 6M6 13.5v7M3.5 18L6 20.5 8.5 18"/><path d="M17.5 16.5V4.5c0 2.2 3 3 3 5.5"/><circle cx="15" cy="16.5" r="2.5" fill="currentColor"/></svg><span class="ctl-txt" data-i18n="ctl.transpose">移調</span><span class="val" aria-hidden="true"></span>
+            <select id="semitones" aria-label="移調する半音数" data-i18n-attr="aria-label:aria.semitones"></select>
           </label>
-          <label class="ctl"><span data-i18n="ctl.accidental">#/♭</span>
+          <label class="ctl acc"><span class="ctl-txt" data-i18n="ctl.accidental">#/♭</span><span class="val" aria-hidden="true"></span>
             <select id="accidental" aria-label="# と b の表記" data-i18n-attr="aria-label:aria.accidental">
               <option value="auto" data-i18n="acc.auto">オリジナル</option>
               <option value="sharp" data-i18n="acc.sharp"># を優先</option>
               <option value="flat" data-i18n="acc.flat">b を優先</option>
             </select>
           </label>
-          <label class="ctl"><span data-i18n="ctl.size">文字サイズ</span>
+          <label class="ctl size"><svg class="ctl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 19L8 5l5.5 14M4.6 14h6.8"/><path d="M14.5 19l3.5-8.5 3.5 8.5M15.6 16.3h4.8"/></svg><span class="ctl-txt" data-i18n="ctl.size">文字サイズ</span><span class="val" aria-hidden="true"></span>
             <select id="fontSize" aria-label="文字サイズ" data-i18n-attr="aria-label:aria.size">
             <option value="6">6</option>
             <option value="7">7</option>
@@ -648,6 +667,10 @@
     </header>
 
     <main>
+      <div class="tabs" role="tablist" aria-label="テキスト" data-i18n-attr="aria-label:tabs">
+        <button type="button" role="tab" class="tab" data-view="in" data-i18n="input">入力</button>
+        <button type="button" role="tab" class="tab" data-view="out" data-i18n="output">出力</button>
+      </div>
       <section class="panel">
         <div class="panel-head">
           <span data-i18n="input">入力</span>
@@ -657,7 +680,6 @@
       <section class="panel out">
         <div class="panel-head">
           <span data-i18n="output">出力</span>
-          <span class="hint" id="summary">0 found</span>
         </div>
         <textarea id="output" spellcheck="false" wrap="off" readonly placeholder="ここに結果が表示されます" data-i18n-attr="placeholder:output.placeholder"></textarea>
       </section>
@@ -676,9 +698,9 @@
   <dialog class="msg help" id="helpDlg" aria-labelledby="helpTitle">
     <h2 id="helpTitle" data-i18n="menu.help">使い方</h2>
     <div class="help-body">
-      <ol class="help-list" data-i18n-html="help.body"><li><b>ファイルを開く</b> – 「開く」をタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>
+      <ol class="help-list" data-i18n-html="help.body"><li><b>ファイルを開く</b> – フォルダのボタンをタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>
 <li><b>コードを入力する</b> – 入力欄にコード譜を貼り付けるか、直接入力します。編集すると出力がすぐに更新されます。</li>
-<li><b>転調</b> – 転調する幅を選ぶと、出力のコードが変換されます。</li>
+<li><b>移調</b> – 移調する幅を選ぶと、出力のコードが変換されます。</li>
 <li><b>#/♭</b> – # と b の表記を切り替えます。</li>
 <li><b>文字サイズ</b> – 文字の大きさを変えます。</li>
 <li><b>プレビュー</b> – 結果全体をまとめて表示します。</li>
@@ -754,13 +776,13 @@
           "output": "Output",
           "input.placeholder": "Open a file or enter chords here",
           "output.placeholder": "Result appears here",
-          "summary": "{d} found, {c} changed",
+          "tabs": "Text",
           "ok": "OK",
           "close": "Close",
           "menu.help": "How to use",
           "menu.privacy": "Privacy",
           "menu.about": "About",
-          "help.body": "<li><b>Open a file</b> – Tap Open and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>\n        <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>\n        <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>\n        <li><b>#/♭</b> – Switch between # and b.</li>\n        <li><b>Size</b> – Change the text size.</li>\n        <li><b>Preview</b> – See the whole result at once.</li>\n        <li><b>Save</b> – Save the result.</li>",
+          "help.body": "<li><b>Open a file</b> – Tap the folder button and choose a chord chart (text, PDF, or image). Text files and text-based PDFs work best. Text from images or scanned PDFs may not be read correctly.</li>\n        <li><b>Or enter chords</b> – Paste or type a chord chart in the Input area. Output updates as you edit.</li>\n        <li><b>Transpose</b> – Choose the key shift. Chords in Output are converted.</li>\n        <li><b>#/♭</b> – Switch between # and b.</li>\n        <li><b>Size</b> – Change the text size.</li>\n        <li><b>Preview</b> – See the whole result at once.</li>\n        <li><b>Save</b> – Save the result.</li>",
           "privacy.body": "<li><b>Your files stay on your device</b> – Chord charts you open or type are processed only in your browser. They are never uploaded to a server. This app has no accounts, cookies, ads, or analytics.</li>\n        <li><b>Libraries from a CDN</b> – When you open a PDF or an image, the PDF.js and Tesseract.js libraries and OCR language data are downloaded from jsDelivr (cdn.jsdelivr.net). As with any website, jsDelivr receives your IP address and browser information. Your file is not sent.</li>\n        <li><b>Data saved in your browser</b> – To work offline, the app and the OCR language data are saved in your browser's storage. You can delete them by clearing this site's data in your browser settings.</li>\n        <li><b>Server logs</b> – This site is hosted on Cloudflare. Standard access logs (such as IP address, time, and the requested page) are kept for operation and security.</li>\n        <li><b>Contact</b> – Questions and feedback: <a href=\"https://github.com/ktkwmr/ChordTransposer/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a>.</li>",
           "about.license": "© 2026 ktkwmr · Licensed under the <a href=\"https://github.com/ktkwmr/ChordTransposer/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT License</a>",
           "working": "Working…",
@@ -790,13 +812,13 @@
         },
         ja: {
           "open": "開く",
-          "ctl.transpose": "転調",
+          "ctl.transpose": "移調",
           "ctl.accidental": "#/♭",
           "ctl.size": "文字サイズ",
           "acc.auto": "オリジナル",
           "acc.sharp": "# を優先",
           "acc.flat": "b を優先",
-          "aria.semitones": "転調する半音数",
+          "aria.semitones": "移調する半音数",
           "aria.accidental": "# と b の表記",
           "aria.size": "文字サイズ",
           "preview": "プレビュー",
@@ -806,13 +828,13 @@
           "output": "出力",
           "input.placeholder": "ファイルを開くか、ここにコード譜を入力",
           "output.placeholder": "ここに結果が表示されます",
-          "summary": "{d} 個検出・{c} 個変換",
+          "tabs": "テキスト",
           "ok": "OK",
           "close": "閉じる",
           "menu.help": "使い方",
           "menu.privacy": "プライバシー",
           "menu.about": "このアプリについて",
-          "help.body": "<li><b>ファイルを開く</b> – 「開く」をタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>\n<li><b>コードを入力する</b> – 入力欄にコード譜を貼り付けるか、直接入力します。編集すると出力がすぐに更新されます。</li>\n<li><b>転調</b> – 転調する幅を選ぶと、出力のコードが変換されます。</li>\n<li><b>#/♭</b> – # と b の表記を切り替えます。</li>\n<li><b>文字サイズ</b> – 文字の大きさを変えます。</li>\n<li><b>プレビュー</b> – 結果全体をまとめて表示します。</li>\n<li><b>保存</b> – 結果を保存します。</li>",
+          "help.body": "<li><b>ファイルを開く</b> – フォルダのボタンをタップして、コード譜（テキスト・PDF・画像）を選びます。テキストファイルとテキスト形式の PDF が最も正確です。画像やスキャンした PDF は、正しく読み取れない場合があります。</li>\n<li><b>コードを入力する</b> – 入力欄にコード譜を貼り付けるか、直接入力します。編集すると出力がすぐに更新されます。</li>\n<li><b>移調</b> – 移調する幅を選ぶと、出力のコードが変換されます。</li>\n<li><b>#/♭</b> – # と b の表記を切り替えます。</li>\n<li><b>文字サイズ</b> – 文字の大きさを変えます。</li>\n<li><b>プレビュー</b> – 結果全体をまとめて表示します。</li>\n<li><b>保存</b> – 結果を保存します。</li>",
           "privacy.body": "<li><b>ファイルは端末の外に出ません</b> – 開いたコード譜や入力した内容は、ブラウザ内だけで処理されます。サーバーに送信されることはありません。アカウント登録・Cookie・広告・アクセス解析もありません。</li>\n<li><b>CDN から読み込むライブラリ</b> – PDF や画像を開いたときだけ、PDF.js・Tesseract.js と OCR 用の言語データを jsDelivr（cdn.jsdelivr.net）から読み込みます。一般的な Web サイトと同様に、jsDelivr には IP アドレスやブラウザの情報が送られますが、ファイルの内容は送られません。</li>\n<li><b>ブラウザに保存するデータ</b> – オフラインで使えるよう、アプリ本体と OCR 用の言語データをブラウザ内に保存します。ブラウザの設定でこのサイトのデータを削除すると消えます。</li>\n<li><b>サーバーのログ</b> – このサイトは Cloudflare で配信しています。運用とセキュリティのため、標準的なアクセスログ（IP アドレス、日時、アクセスしたページなど）が記録されます。</li>\n<li><b>お問い合わせ</b> – ご質問やご意見は <a href=\"https://github.com/ktkwmr/ChordTransposer/issues\" target=\"_blank\" rel=\"noopener\">GitHub Issues</a> へどうぞ。</li>",
           "about.license": "© 2026 ktkwmr · <a href=\"https://github.com/ktkwmr/ChordTransposer/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">MIT ライセンス</a>で公開しています",
           "working": "処理中…",
@@ -905,7 +927,6 @@
       const semitoneEl = document.getElementById("semitones");
       const accidentalEl = document.getElementById("accidental");
       const fontSizeEl = document.getElementById("fontSize");
-      const summaryEl = document.getElementById("summary");
       const fileInput = document.getElementById("fileInput");
       const msgDlg = document.getElementById("msgDlg");
       const loadDlg = document.getElementById("loadDlg");
@@ -1428,7 +1449,6 @@
         const source = inputEl.value;
         const result = transposeText(source, semitones, mode);
         outputEl.value = result.text;
-        summaryEl.textContent = t("summary", { d: result.detected, c: result.changed });
       }
 
       function applyFontSize() {
@@ -1675,48 +1695,34 @@
         }
       }
 
-      // スマホ縦向き: 「入力テキスト」「変換後テキスト」の見出しをタップして表示を切り替える
-      const panelHeads = Array.prototype.slice.call(document.querySelectorAll(".panel-head"));
-
-      function currentView() {
-        return appEl.getAttribute("data-view") === "out" ? "out" : "in";
-      }
-
-      function syncPanelHeads() {
-        panelHeads.forEach(function (head) {
-          const isOut = head.parentElement.classList.contains("out");
-          if (phoneMq.matches) {
-            head.setAttribute("role", "button");
-            head.tabIndex = 0;
-            head.setAttribute("aria-expanded", String((currentView() === "out") === isOut));
-          } else {
-            head.removeAttribute("role");
-            head.removeAttribute("tabindex");
-            head.removeAttribute("aria-expanded");
-          }
-        });
-      }
+      // スマホ縦向き: 「入力」「出力」のタブで表示を切り替える
+      const viewTabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
 
       function setView(view) {
         appEl.setAttribute("data-view", view);
-        syncPanelHeads();
+        viewTabs.forEach(function (tab) {
+          tab.setAttribute("aria-selected", String(tab.dataset.view === view));
+        });
       }
 
-      panelHeads.forEach(function (head) {
-        const view = head.parentElement.classList.contains("out") ? "out" : "in";
-        head.addEventListener("click", function () {
-          if (phoneMq.matches) setView(view);
-        });
-        head.addEventListener("keydown", function (e) {
-          if (phoneMq.matches && (e.key === "Enter" || e.key === " ")) {
-            e.preventDefault();
-            setView(view);
-          }
-        });
+      viewTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () { setView(tab.dataset.view); });
       });
-      if (phoneMq.addEventListener) phoneMq.addEventListener("change", syncPanelHeads);
-      else phoneMq.addListener(syncPanelHeads);
-      syncPanelHeads();
+      setView(appEl.getAttribute("data-view") === "out" ? "out" : "in");
+
+      // 移調・#/♭・文字サイズのボタンに選択中の値を表示する（#/♭ は「オリジナル」なら空白、それ以外は # / ♭ のみ）
+      const ACC_LABEL = { auto: "", sharp: "#", flat: "♭" };
+      function syncCtlValues() {
+        document.querySelectorAll("label.ctl").forEach(function (label) {
+          const sel = label.querySelector("select");
+          label.querySelector(".val").textContent = sel === accidentalEl
+            ? ACC_LABEL[sel.value]
+            : sel.options[sel.selectedIndex].textContent;
+        });
+      }
+      [semitoneEl, accidentalEl, fontSizeEl].forEach(function (sel) { sel.addEventListener("change", syncCtlValues); });
+      window.addEventListener("pageshow", syncCtlValues);   // 戻る操作でフォームの値が復元された場合
+      syncCtlValues();
 
       function onTransposeSettingChange() {
         render();

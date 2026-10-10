@@ -548,7 +548,7 @@
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
       }
       /* テキスト欄そのものをカードにし、出力ではその下にボタンを置く */
-      .panel {
+      .panel, .panel.out {   /* .panel.out の白背景も消す（ボタンの後ろに白い帯が出ないように） */
         flex: 1 1 0;
         gap: 10px;
         border: 0;

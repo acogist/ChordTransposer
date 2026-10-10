@@ -4,7 +4,7 @@ A web app that transposes chord charts. Paste a chord chart or open a text, PDF,
 
 コード譜を転調する Web アプリです。コード譜を貼り付けるか、テキスト・PDF・画像ファイルを開き、転調幅を選ぶだけで変換できます。
 
-**▶ https://ktkwmr.com/chordtransposer/**
+**▶ https://ktkwmr.com/chordtransposer/** (日本語: https://ktkwmr.com/chordtransposer/ja/)
 
 ## Features / 機能
 
@@ -16,8 +16,8 @@ A web app that transposes chord charts. Paste a chord chart or open a text, PDF,
   変換結果のプレビューと保存
 - **Installable PWA** that also works offline after the first visit
   ホーム画面に追加でき、一度開けばオフラインでも動作
-- **English / Japanese UI**, chosen automatically from your browser language (or set with `?lang=en` / `?lang=ja`)
-  英語・日本語の表示に対応。ブラウザの言語で自動選択（`?lang=en` / `?lang=ja` でも指定可能）
+- **English / Japanese UI**, chosen automatically from your browser language. `/chordtransposer/ja/` is always Japanese, and `?lang=en` / `?lang=ja` overrides both
+  英語・日本語の表示に対応。ブラウザの言語で自動選択。`/chordtransposer/ja/` は常に日本語で、`?lang=en` / `?lang=ja` で切り替えも可能
 
 ## Privacy / プライバシー
 
@@ -45,20 +45,22 @@ public/
   sitemap.xml
   chordtransposer/
     index.html                  # the whole app (HTML / CSS / JS, English and Japanese text)
+    ja/index.html               # Japanese page, generated from index.html (do not edit)
     sw.js                       # Service Worker (network first, offline fallback)
     manifest.json               # PWA manifest
     icons/
     og-image.png                # image for search results and social media shares
     THIRD_PARTY_LICENSES.md     # third-party notices (shown in About)
 scripts/
+  build-ja.mjs                  # generates ja/index.html from index.html
   update-third-party-licenses.mjs
   og-image.html                 # source of og-image.png
   render-og-image.mjs           # renders og-image.html to og-image.png (Playwright)
 wrangler.jsonc                  # Cloudflare Workers (static assets)
 ```
 
-There is no build step. The files in `public/` are served as they are.
-ビルド工程はなく、`public/` のファイルをそのまま配信します。
+The files in `public/` are served as they are. The only generated file is `public/chordtransposer/ja/index.html` (see below).
+`public/` のファイルをそのまま配信します。生成されるファイルは `public/chordtransposer/ja/index.html` だけです（下記参照）。
 
 When you load a script, worker, or data from a new external host, add it to the `Content-Security-Policy` in `public/_headers`, or the browser will block it.
 新しい外部サイトからスクリプトやデータを読み込むときは、`public/_headers` の `Content-Security-Policy` にそのホストを追加してください（追加しないとブラウザにブロックされます）。
@@ -80,6 +82,23 @@ The app is served with Cloudflare Workers static assets.
 ```sh
 npx wrangler deploy
 ```
+
+## Japanese page / 日本語ページ
+
+`public/chordtransposer/ja/index.html` is a copy of `index.html` with Japanese `<head>` (title, description, canonical, Open Graph, JSON-LD) and Japanese UI text, so search engines can index the Japanese version. Edit only `index.html`; the Japanese page is regenerated:
+
+- automatically by `npx wrangler deploy` / `npx wrangler dev` (`build.command` in `wrangler.jsonc`)
+- automatically by the **Build Japanese page** GitHub Actions workflow on push to `main`
+- manually:
+
+```sh
+node scripts/build-ja.mjs          # regenerate ja/index.html
+node scripts/build-ja.mjs --check  # exit 1 if ja/index.html is out of date
+```
+
+The Japanese title and description for search results are in `scripts/build-ja.mjs`. UI text comes from the `I18N.ja` strings in `index.html`.
+
+検索エンジンが日本語版をインデックスできるよう、`ja/index.html` は `index.html` の `<head>`（タイトル・説明文・canonical・OGP・JSON-LD）と画面の文言を日本語に置き換えたものです。編集するのは `index.html` だけで、日本語ページはデプロイ時（`wrangler deploy` / `wrangler dev`）と `main` への push 時（GitHub Actions）に自動で再生成されます。検索結果に出る日本語のタイトルと説明文は `scripts/build-ja.mjs` にあります。
 
 ## Third-party licenses / サードパーティライセンス
 

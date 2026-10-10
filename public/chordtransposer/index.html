@@ -157,16 +157,22 @@
       transition: border-color 0.12s;
     }
     label.key { width: 96px; }
-    label.acc { width: 80px; }
+    label.acc { width: 64px; }
     label.size { width: 88px; }
     .ctl-ico { display: block; flex: none; width: 20px; height: 20px; color: var(--ink); }
     label.key .ctl-txt, label.size .ctl-txt { display: none; }
     label.ctl .val {
+      flex: 1;
+      text-align: center;
       color: var(--ink);
       font-size: 14px;
       font-weight: 700;
       font-variant-numeric: tabular-nums;
     }
+    /* #/♭: ♯ と ♭ を並べ、優先する方だけ濃くする（オリジナルは両方） */
+    label.acc .ctl-ico { width: 24px; height: 24px; margin: 0 auto; }
+    label.acc[data-acc="sharp"] .ico-flat,
+    label.acc[data-acc="flat"] .ico-sharp { opacity: 0.25; }
     label.ctl select {
       position: absolute;
       inset: 0;
@@ -538,6 +544,8 @@
       /* 幅は中身に合わせ、余った分を均等に分ける（320px 幅でも値が切れないように） */
       label.ctl { flex: 1 1 auto; width: auto; height: 44px; gap: 4px; padding: 0 20px 0 6px; background-position: right 7px center; }
       label.ctl .ctl-ico { width: 22px; height: 22px; }
+      label.acc { flex: none; width: 60px; }
+      label.acc .ctl-ico { width: 24px; height: 24px; }
       label.ctl .val { font-size: 16px; }
 
       main {
@@ -628,7 +636,7 @@
           <label class="ctl key"><svg class="ctl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3.5v7M3.5 6L6 3.5 8.5 6M6 13.5v7M3.5 18L6 20.5 8.5 18"/><path d="M17.5 16.5V4.5c0 2.2 3 3 3 5.5"/><circle cx="15" cy="16.5" r="2.5" fill="currentColor"/></svg><span class="ctl-txt" data-i18n="ctl.transpose">Transpose</span><span class="val" aria-hidden="true"></span>
             <select id="semitones" aria-label="Semitones to transpose" data-i18n-attr="aria-label:aria.semitones"></select>
           </label>
-          <label class="ctl acc"><span class="ctl-txt" data-i18n="ctl.accidental">#/♭</span><span class="val" aria-hidden="true"></span>
+          <label class="ctl acc"><svg class="ctl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="ico-sharp" d="M5 4.5v15M8.8 3.5v15M2.6 9.6l8.6-1.8M2.6 15.4l8.6-1.8"/><path class="ico-flat" d="M14.5 3v17c3.6-1.4 6.8-3.6 6.8-6 0-2.4-2.8-3-6.8 0"/></svg>
             <select id="accidental" aria-label="Sharp or flat preference" data-i18n-attr="aria-label:aria.accidental">
               <option value="auto" data-i18n="acc.auto">Original</option>
               <option value="sharp" data-i18n="acc.sharp">Prefer #</option>
@@ -763,7 +771,6 @@
         en: {
           "open": "Open",
           "ctl.transpose": "Transpose",
-          "ctl.accidental": "#/♭",
           "ctl.size": "Size",
           "acc.auto": "Original",
           "acc.sharp": "Prefer #",
@@ -815,7 +822,6 @@
         ja: {
           "open": "開く",
           "ctl.transpose": "移調",
-          "ctl.accidental": "#/♭",
           "ctl.size": "文字サイズ",
           "acc.auto": "オリジナル",
           "acc.sharp": "# を優先",
@@ -1712,15 +1718,12 @@
       });
       setView(appEl.getAttribute("data-view") === "out" ? "out" : "in");
 
-      // 移調・#/♭・文字サイズのボタンに選択中の値を表示する（#/♭ は「オリジナル」なら空白、それ以外は # / ♭ のみ）
-      const ACC_LABEL = { auto: "", sharp: "#", flat: "♭" };
+      // 移調・文字サイズのボタンに選択中の値を表示し、#/♭ のアイコンは優先する方を濃くする
       function syncCtlValues() {
-        document.querySelectorAll("label.ctl").forEach(function (label) {
-          const sel = label.querySelector("select");
-          label.querySelector(".val").textContent = sel === accidentalEl
-            ? ACC_LABEL[sel.value]
-            : sel.options[sel.selectedIndex].textContent;
+        [semitoneEl, fontSizeEl].forEach(function (sel) {
+          sel.parentElement.querySelector(".val").textContent = sel.options[sel.selectedIndex].textContent;
         });
+        accidentalEl.parentElement.setAttribute("data-acc", accidentalEl.value);
       }
       [semitoneEl, accidentalEl, fontSizeEl].forEach(function (sel) { sel.addEventListener("change", syncCtlValues); });
       window.addEventListener("pageshow", syncCtlValues);   // 戻る操作でフォームの値が復元された場合

@@ -87,9 +87,8 @@ npx wrangler deploy
 
 `public/chordtransposer/ja/index.html` is a copy of `index.html` with Japanese `<head>` (title, description, canonical, Open Graph, JSON-LD) and Japanese UI text, so search engines can index the Japanese version. Edit only `index.html`; the Japanese page is regenerated:
 
-- automatically by `npx wrangler deploy` / `npx wrangler dev` (`build.command` in `wrangler.jsonc`)
 - automatically by the **Build Japanese page** GitHub Actions workflow on push to `main`
-- manually:
+- manually (run this before deploying from your machine):
 
 ```sh
 node scripts/build-ja.mjs          # regenerate ja/index.html
@@ -98,7 +97,7 @@ node scripts/build-ja.mjs --check  # exit 1 if ja/index.html is out of date
 
 The Japanese title and description for search results are in `scripts/build-ja.mjs`. UI text comes from the `I18N.ja` strings in `index.html`.
 
-検索エンジンが日本語版をインデックスできるよう、`ja/index.html` は `index.html` の `<head>`（タイトル・説明文・canonical・OGP・JSON-LD）と画面の文言を日本語に置き換えたものです。編集するのは `index.html` だけで、日本語ページはデプロイ時（`wrangler deploy` / `wrangler dev`）と `main` への push 時（GitHub Actions）に自動で再生成されます。検索結果に出る日本語のタイトルと説明文は `scripts/build-ja.mjs` にあります。
+検索エンジンが日本語版をインデックスできるよう、`ja/index.html` は `index.html` の `<head>`（タイトル・説明文・canonical・OGP・JSON-LD）と画面の文言を日本語に置き換えたものです。編集するのは `index.html` だけで、日本語ページは `main` への push 時に GitHub Actions が自動で再生成します。手元からデプロイする場合は、先に `node scripts/build-ja.mjs` を実行してください。検索結果に出る日本語のタイトルと説明文は `scripts/build-ja.mjs` にあります。
 
 ## Third-party licenses / サードパーティライセンス
 

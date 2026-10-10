@@ -17,7 +17,7 @@
 //
 // Usage: node scripts/build-ja.mjs [--check]
 //   --check  do not write; exit 1 if ja/index.html is out of date.
-// Runs automatically before `wrangler deploy` / `wrangler dev` (build.command in wrangler.jsonc).
+// Runs automatically on push to main (.github/workflows/build-ja.yml).
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";

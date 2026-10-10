@@ -1074,7 +1074,9 @@
         const idx = noteToIndex(note);
         if (idx < 0) return note;
         const shift = ((semitones % 12) + 12) % 12;
-        if (shift === 0) return note;
+        // 移調しないとき: 「オリジナル」と、# / b の付かない音名（H を含む）はそのまま。
+        // 「# を優先」「b を優先」なら # / b の付いた音名だけを書き換える（例: Db → C#）
+        if (shift === 0 && (mode === "auto" || !/[#b♯♭]/.test(note))) return note;
         const next = (idx + shift) % 12;
         const preferFlat = mode === "flat" || (mode === "auto" && originalPrefersFlat(note));
         return (preferFlat ? FLAT : SHARP)[next];

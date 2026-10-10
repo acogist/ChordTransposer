@@ -38,14 +38,18 @@ The same notice is shown in the app under ⚙ → **Privacy**.
 public/
   _redirects                    # / → /chordtransposer/
   robots.txt
+  sitemap.xml
   chordtransposer/
     index.html                  # the whole app (HTML / CSS / JS)
     sw.js                       # Service Worker (network first, offline fallback)
     manifest.json               # PWA manifest
     icons/
+    og-image.png                # image for search results and social media shares
     THIRD_PARTY_LICENSES.md     # third-party notices (shown in About)
 scripts/
   update-third-party-licenses.mjs
+  og-image.html                 # source of og-image.png
+  render-og-image.mjs           # renders og-image.html to og-image.png (Playwright)
 wrangler.jsonc                  # Cloudflare Workers (static assets)
 ```
 
